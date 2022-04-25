@@ -1,6 +1,7 @@
 package com.sean.taller.service.test.unit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
@@ -17,7 +18,6 @@ import com.sean.taller.Application;
 import com.sean.taller.model.prod.Product;
 import com.sean.taller.model.prod.Productcategory;
 import com.sean.taller.model.prod.Productsubcategory;
-import com.sean.taller.repository.ProductRepository;
 import com.sean.taller.repository.ProductcategoryRepository;
 import com.sean.taller.repository.ProductsubcategoryRepository;
 import com.sean.taller.services.intfcs.ProductService;
