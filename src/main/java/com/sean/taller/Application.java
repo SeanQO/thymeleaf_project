@@ -11,7 +11,7 @@ import com.sean.taller.user.UserEntity;
 import com.sean.taller.user.UserType;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.edu.taller.ortiz.isabella"})	
+@ComponentScan(basePackages = {"com.sean.taller"})	
 public class Application {
 
 	public static void main(String[] args) {
