@@ -2,11 +2,11 @@ package com.sean.taller.services.imp;
 
 import java.math.BigDecimal;
 
+
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.sean.taller.model.prod.Product;
 import com.sean.taller.repository.ProductRepository;
 import com.sean.taller.repository.ProductcategoryRepository;
@@ -142,6 +142,11 @@ public class ProductServiceImp implements ProductService{
 		real.setWorkorders(p.getWorkorders());
 		
 		return real;
+	}
+	
+	@Override
+	public Iterable<Product> findAll() {
+		return pr.findAll();
 	}
 
 }

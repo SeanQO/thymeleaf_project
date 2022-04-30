@@ -10,19 +10,19 @@ public class LoginController {
 
 	    @GetMapping("/login")
 	    public String login(){
-	        return "/login";
+	        return "login";
 	        
 	    }
 
 	    @GetMapping("/logout")
 	    public String logout(){
-	        return "/logout";
+	        return "logout";
 	        
 	    }
 
 	    @GetMapping("/access-denied")
 	    public String accessDenied(){
-	        return "/access-denied";
+	        return "access-denied";
 	        
 	    }
 }

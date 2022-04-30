@@ -7,4 +7,5 @@ public interface ProductService {
 	
 	public Product edit(Product p);
 	
+	Iterable<Product> findAll();
 }
