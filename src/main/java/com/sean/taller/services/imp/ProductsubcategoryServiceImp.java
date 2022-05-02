@@ -2,9 +2,9 @@ package com.sean.taller.services.imp;
 
 import java.util.Optional;
 
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.sean.taller.model.prod.Productcategory;
 import com.sean.taller.model.prod.Productsubcategory;
 import com.sean.taller.repository.ProductcategoryRepository;
@@ -69,6 +69,11 @@ public class ProductsubcategoryServiceImp implements ProductsubcategoryService{
 		real.setRowguid(psc.getRowguid());
 		
 		return real;
+	}
+	
+	@Override
+	public Iterable<Productsubcategory> findAll() {
+		return pscr.findAll();
 	}
 
 }

@@ -2,6 +2,7 @@ package com.sean.taller.services.imp;
 
 import java.util.Optional;
 
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.sean.taller.model.prod.Workorder;
@@ -69,5 +70,16 @@ public class WorkorderServiceImp implements WorkorderService{
 		real.setWorkorderroutings(wo.getWorkorderroutings());
 		
 		return real;
+	}
+	
+	@Override
+	public Iterable<Workorder> findAll() {
+		return wor.findAll();
+	}
+
+	@Override
+	public Optional<Workorder> findById(Integer id) {
+		
+		return wor.findById(id);
 	}
 }

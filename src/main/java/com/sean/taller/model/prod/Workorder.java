@@ -2,7 +2,10 @@ package com.sean.taller.model.prod;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Timestamp;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -19,18 +22,22 @@ public class Workorder implements Serializable {
 	@SequenceGenerator(name="WORKORDER_WORKORDERID_GENERATOR",allocationSize = 1, sequenceName="WORKORDER_SEQ")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="WORKORDER_WORKORDERID_GENERATOR")
 	private Integer workorderid;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate duedate;
 
-	private Timestamp duedate;
-
-	private Timestamp enddate;
-
-	private Timestamp modifieddate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate enddate;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate modifieddate;
 
 	private Integer orderqty;
 
 	private Integer scrappedqty;
-
-	private Timestamp startdate;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate startdate;
 
 	//bi-directional many-to-one association to Product
 	@ManyToOne
@@ -57,27 +64,27 @@ public class Workorder implements Serializable {
 		this.workorderid = workorderid;
 	}
 
-	public Timestamp getDuedate() {
+	public LocalDate getDuedate() {
 		return this.duedate;
 	}
 
-	public void setDuedate(Timestamp duedate) {
+	public void setDuedate(LocalDate duedate) {
 		this.duedate = duedate;
 	}
 
-	public Timestamp getEnddate() {
+	public LocalDate getEnddate() {
 		return this.enddate;
 	}
 
-	public void setEnddate(Timestamp enddate) {
+	public void setEnddate(LocalDate enddate) {
 		this.enddate = enddate;
 	}
 
-	public Timestamp getModifieddate() {
+	public LocalDate getModifieddate() {
 		return this.modifieddate;
 	}
 
-	public void setModifieddate(Timestamp modifieddate) {
+	public void setModifieddate(LocalDate modifieddate) {
 		this.modifieddate = modifieddate;
 	}
 
@@ -97,11 +104,11 @@ public class Workorder implements Serializable {
 		this.scrappedqty = scrappedqty;
 	}
 
-	public Timestamp getStartdate() {
+	public LocalDate getStartdate() {
 		return this.startdate;
 	}
 
-	public void setStartdate(Timestamp startdate) {
+	public void setStartdate(LocalDate startdate) {
 		this.startdate = startdate;
 	}
 

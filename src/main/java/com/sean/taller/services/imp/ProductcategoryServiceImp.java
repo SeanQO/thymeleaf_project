@@ -1,4 +1,4 @@
-	package com.sean.taller.services.imp;
+package com.sean.taller.services.imp;
 
 import java.util.Optional;
 
@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.sean.taller.model.prod.Productcategory;
 import com.sean.taller.repository.ProductcategoryRepository;
 import com.sean.taller.services.intfcs.ProductcategoryService;
@@ -60,4 +59,10 @@ public class ProductcategoryServiceImp implements ProductcategoryService{
 		return real;
 	}
 
+	@Override
+	public Iterable<Productcategory> findAll() {
+		return pcr.findAll();
+	}
+	
+	
 }

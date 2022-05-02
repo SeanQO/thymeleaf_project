@@ -6,4 +6,6 @@ public interface ProductsubcategoryService {
 	public Productsubcategory save(Productsubcategory psc);
 	
 	public Productsubcategory edit(Productsubcategory psc);
+	
+	Iterable<Productsubcategory> findAll();
 }
