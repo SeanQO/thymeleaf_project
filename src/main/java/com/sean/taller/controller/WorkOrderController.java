@@ -35,32 +35,27 @@ public class WorkOrderController {
 	}
 	
 	@GetMapping("/{id}")
-	public String getProductvendor(Model model, @PathVariable Integer id) {
+	public String getWorkOrder(Model model, @PathVariable Integer id) {
 		model.addAttribute("workorder", wos.findById(id));
 		return "work-ord/information";
 	}
 	
 	//****************************** ADD ******************************
 	@GetMapping("/add")
-	public String addProductvendor(Model model) {
+	public String addWorkOrder(Model model) {
 		model.addAttribute("workorder", new Workorder());
 		return "work-ord/add";
 	}
 	
 	@PostMapping("/add")
-	public String addProductvendorPost(Model model, @ModelAttribute Workorder wo,
-			@RequestParam(value="action", required=true) String action) {
-		if (!action.equals("Cancel")) {
-			wos.save(wo);
-			return "work-ord/add";
-			
-		}
+	public String addWorkOrderPost(Model model, @ModelAttribute Workorder wo) {
+		wos.save(wo);
 		return "redirect:/work-ord";
 	}
 
 	//****************************** EDIT ******************************
 	@GetMapping("/edit/{id}")
-	public String editProductvendor(Model model, @PathVariable("id") Integer id) {
+	public String editWorkOrder(Model model, @PathVariable Integer id) {
 		Optional<Workorder> wo = wos.findById(id);
 		if (wo.isEmpty())
 			throw new IllegalArgumentException("Invalid workorder Id:" + id);
@@ -71,21 +66,15 @@ public class WorkOrderController {
 	}
 
 	@PostMapping("/edit/{id}")
-	public String postEditProduct(Model model, @PathVariable Integer id, @ModelAttribute Workorder wo,
-			@RequestParam(value="action", required=true) String action) {
-		
-		if (!action.equals("Cancel")) {
-			wos.edit(wo);
-			return "work-ord/edit";
-			
-		}
+	public String postEditProduct(Model model, @PathVariable Integer id, @ModelAttribute Workorder wo) {
+		wos.edit(wo);
 		return "redirect:/work-ord";
 		
 	}
 	
 	//****************************** DELETE ******************************
 	@GetMapping("/delete/{id}")
-	public String deleteProductvendor(Model model) {
+	public String deleteWorkOrder(Model model) {
 		return "work-ord/index";
 	}
 	

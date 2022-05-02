@@ -24,34 +24,34 @@
 			<form action="#" th:object="${workorder}" th:action="@{/work-ord/add}" method="post">
 			
 				<div class="form-group col-md-6">
-                	<label for="visible" class="col-form-label">duedate</label>
-                	<input type="date" class="form-control" id="duedate" placeholder="NAME" th:field="*{duedate}"/>
+                	<label for="visible" class="col-form-label">Due date</label>
+                	<input type="date" class="form-control" id="duedate" placeholder="Due date" th:field="*{duedate}"/>
                 	<span th:if="${#fields.hasErrors('duedate')}" th:errors="*{duedate}" class="text-danger"></span>
               	</div>
               	<div class="form-group col-md-6">
-                	<label for="visible" class="col-form-label">enddate</label>
-                	<input type="date" class="form-control" id="enddate" placeholder="NAME" th:field="*{enddate}"/>
+                	<label for="visible" class="col-form-label">End date</label>
+                	<input type="date" class="form-control" id="enddate" placeholder="End date" th:field="*{enddate}"/>
                 	<span th:if="${#fields.hasErrors('enddate')}" th:errors="*{enddate}" class="text-danger"></span>
               	</div>
               	<div class="form-group col-md-6">
-                	<label for="visible" class="col-form-label">modifieddate</label>
-                	<input type="date" class="form-control" id="modifieddate" placeholder="NAME" th:field="*{modifieddate}"/>
+                	<label for="visible" class="col-form-label">Modified date</label>
+                	<input type="date" class="form-control" id="modifieddate" placeholder="Modified date" th:field="*{modifieddate}"/>
                 	<span th:if="${#fields.hasErrors('modifieddate')}" th:errors="*{modifieddate}" class="text-danger"></span>
               	</div>
 				<div class="form-group col-md-6">
-                	<label for="visible" class="col-form-label">orderqty</label>
-                	<input type="number" min="0" class="form-control" id="orderqty" placeholder="NAME" th:field="*{orderqty}"/>
+                	<label for="visible" class="col-form-label">Order qty</label>
+                	<input type="number" min="0" class="form-control" id="orderqty" placeholder="Order qty" th:field="*{orderqty}"/>
                 	<span th:if="${#fields.hasErrors('orderqty')}" th:errors="*{orderqty}" class="text-danger"></span>
               	</div>
 
               	<div class="form-group col-md-6">
-                	<label for="visible" class="col-form-label">scrappedqty</label>
-                	<input type="number" min="0" class="form-control" id="scrappedqty" placeholder="NAME" th:field="*{scrappedqty}"/>
+                	<label for="visible" class="col-form-label">Scrapped qty</label>
+                	<input type="number" min="0" class="form-control" id="scrappedqty" placeholder="Scrapped qty" th:field="*{scrappedqty}"/>
                 	<span th:if="${#fields.hasErrors('scrappedqty')}" th:errors="*{scrappedqty}" class="text-danger"></span>
               	</div>
               	<div class="form-group col-md-6">
-                	<label for="visible" class="col-form-label">startdate</label>
-                	<input type="date" class="form-control" id="startdate" placeholder="NAME" th:field="*{startdate}"/>
+                	<label for="visible" class="col-form-label">Start date</label>
+                	<input type="date" class="form-control" id="startdate" placeholder="Start date" th:field="*{startdate}"/>
                 	<span th:if="${#fields.hasErrors('startdate')}" th:errors="*{startdate}" class="text-danger"></span>
               	</div>
           	 	<div class="col-md-6 mt-3">
