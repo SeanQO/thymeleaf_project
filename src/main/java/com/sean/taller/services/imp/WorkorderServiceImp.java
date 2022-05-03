@@ -19,20 +19,18 @@ public class WorkorderServiceImp implements WorkorderService{
 	}
 	
 	@Override
-	public Workorder save(Workorder wo) {
-		
-		Integer orderqty = wo.getOrderqty();
+	public Workorder add(Workorder wo) {
 		
 		if(wo.equals(null))
 			throw new NullPointerException("Work order does not exist");
 		
 		if(wo.getOrderqty() < 0) //<========================================
-			throw new IllegalArgumentException("Invalid order quantity" + wo.getOrderqty() + (wo.getOrderqty() >= 0) +  (orderqty >= 0)); //<========================================
+			throw new IllegalArgumentException("Invalid order quantity"); //<========================================
 		
 		if(wo.getScrappedqty() < 0)
 			throw new IllegalArgumentException("Invalid scrapped  quantity");
 		
-		if(wo.getDuedate().compareTo(wo.getEnddate()) >= 0)
+		if(wo.getStartdate().compareTo(wo.getEnddate()) >= 0)
 			throw new IllegalArgumentException("Product sell end date is equal or lesser than the sell start date");
 		
 		wor.save(wo);
@@ -45,10 +43,10 @@ public class WorkorderServiceImp implements WorkorderService{
 		if(wo.equals(null))
 			throw new NullPointerException("Work order does not exist");
 		
-		if(wo.getOrderqty() >= 0)
+		if(wo.getOrderqty() < 0)
 			throw new IllegalArgumentException("Invalid order quantity");
 		
-		if(wo.getScrappedqty() >= 0)
+		if(wo.getScrappedqty() < 0)
 			throw new IllegalArgumentException("Invalid scrapped  quantity");
 		
 		if(wo.getDuedate().compareTo(wo.getEnddate()) >= 0)
@@ -62,6 +60,7 @@ public class WorkorderServiceImp implements WorkorderService{
 		} else {
 			real = woInr.get();
 		}
+		real.setWorkorderid(wo.getWorkorderid());
 		real.setDuedate(wo.getDuedate());
 		real.setEnddate(wo.getEnddate());
 		real.setModifieddate(wo.getModifieddate());

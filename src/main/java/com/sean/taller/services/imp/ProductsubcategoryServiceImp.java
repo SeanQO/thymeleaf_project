@@ -28,7 +28,7 @@ public class ProductsubcategoryServiceImp implements ProductsubcategoryService{
 		if(psc.equals(null))
 			throw new IllegalArgumentException("Product sub-category is not instantiated");
 		
-		if(!(psc.getName().replaceAll(" ", "").length() < 5))
+		if((psc.getName().replaceAll(" ", "").length() < 5))
 			throw new IllegalArgumentException("Not enough characters for product category");
 		
 		Optional<Productcategory> tempPc = pcr.findById(psc.getProductcategory().getProductcategoryid());
@@ -46,7 +46,7 @@ public class ProductsubcategoryServiceImp implements ProductsubcategoryService{
 		if(psc.equals(null))
 			throw new IllegalArgumentException("Product sub-category is not instantiated");
 		
-		if(!(psc.getName().replaceAll(" ", "").length() < 5))
+		if((psc.getName().replaceAll(" ", "").length() < 5))
 			throw new IllegalArgumentException("Not enough characters for product category");
 		
 		Optional<Productcategory> tempPc = pcr.findById(psc.getProductcategory().getProductcategoryid());

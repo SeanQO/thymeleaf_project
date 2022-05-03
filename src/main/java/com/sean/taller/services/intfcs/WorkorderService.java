@@ -3,7 +3,7 @@ import java.util.Optional;
 import com.sean.taller.model.prod.Workorder;
 
 public interface WorkorderService {
-	public Workorder save(Workorder wo);
+	public Workorder add(Workorder wo);
 
 	public Workorder edit(Workorder wo);
 	

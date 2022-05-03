@@ -3,6 +3,7 @@ package com.sean.taller.model.prod;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -59,9 +60,9 @@ public class Product implements Serializable {
 
 	private Integer safetystocklevel;
 
-	private Timestamp sellenddate;
+	private LocalDate sellenddate;
 
-	private Timestamp sellstartdate;
+	private LocalDate sellstartdate;
 
 	private String size;
 
@@ -304,11 +305,11 @@ public class Product implements Serializable {
 		return this.safetystocklevel;
 	}
 
-	public Timestamp getSellenddate() {
+	public LocalDate getSellenddate() {
 		return this.sellenddate;
 	}
 
-	public Timestamp getSellstartdate() {
+	public LocalDate getSellstartdate() {
 		return this.sellstartdate;
 	}
 
@@ -514,11 +515,11 @@ public class Product implements Serializable {
 		this.safetystocklevel = safetystocklevel;
 	}
 
-	public void setSellenddate(Timestamp sellenddate) {
+	public void setSellenddate(LocalDate sellenddate) {
 		this.sellenddate = sellenddate;
 	}
 
-	public void setSellstartdate(Timestamp sellstartdate) {
+	public void setSellstartdate(LocalDate sellstartdate) {
 		this.sellstartdate = sellstartdate;
 	}
 

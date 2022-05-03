@@ -2,12 +2,11 @@ package com.sean.taller.service.test.unit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.Calendar;
-
+import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,6 @@ class ProductTest {
 		
 	}
 	
-	@SuppressWarnings("deprecation")
 	void setUp() {
 		p = new Product();
 		pc = new Productcategory();
@@ -51,11 +49,8 @@ class ProductTest {
 		
 		p.setProductnumber("154");
 		
-		int y = Calendar.getInstance().getTime().getYear();
-		int m = Calendar.getInstance().getTime().getMonth();
-		int d = Calendar.getInstance().getTime().getDay();
-		p.setSellstartdate(new Timestamp(y, m, d, 0, 0, 0, 0));
-		p.setSellenddate(new Timestamp(y, m, d, 1, 1, 1, 1));
+		p.setSellstartdate(LocalDate.of(2022, 5, 8));
+		p.setSellenddate(LocalDate.of(2022, 5, 8));
 		
 		p.setWeight(new BigDecimal(1));
 		p.setSize("");

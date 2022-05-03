@@ -11,6 +11,7 @@ import com.sean.taller.model.prod.Product;
 import com.sean.taller.repository.ProductRepository;
 import com.sean.taller.repository.ProductcategoryRepository;
 import com.sean.taller.repository.ProductsubcategoryRepository;
+import com.sean.taller.repository.UnitmeasureRepository;
 import com.sean.taller.services.intfcs.ProductService;
 
 @Service
@@ -20,11 +21,14 @@ public class ProductServiceImp implements ProductService{
 	private ProductRepository pr;
 	private ProductsubcategoryRepository sr;
 	private ProductcategoryRepository cr;
+	private UnitmeasureRepository umr;
 	
-	public ProductServiceImp(ProductRepository pr, ProductsubcategoryRepository sr, ProductcategoryRepository cr) {
+	
+	public ProductServiceImp(ProductRepository pr, ProductsubcategoryRepository sr, ProductcategoryRepository cr, UnitmeasureRepository umr) {
 		this.pr = pr;
 		this.sr = sr;
 		this.cr = cr;
+		this.umr = umr;
 	}
 	
 	@Override
@@ -32,33 +36,27 @@ public class ProductServiceImp implements ProductService{
 		if(p == null) 
 			throw new NullPointerException("product does not exist");
 		
-		if( p.getWeight() != null)
+		if( p.getWeight() == null)
 			throw new NullPointerException();
 		
-		if (p.getProductsubcategory() != null)
+		if (p.getProductsubcategory() == null)
 			throw new NullPointerException();
 		
-		if (p.getSize() != null) 
+		if (p.getSize() == null) 
 			throw new NullPointerException();
 		
-		if (p.getProductsubcategory().getProductcategory() != null)
+		if (p.getProductsubcategory().getProductcategory() == null)
 			throw new NullPointerException();
 		
 		if (sr.existsById(p.getProductsubcategory().getProductsubcategoryid()) &&
 				cr.existsById(p.getProductsubcategory().getProductcategory().getProductcategoryid()))
 		
 		
-		if(p.getProductnumber().equals(null))
+		if(p.getProductnumber() == null)
 			throw new IllegalArgumentException("Product number does not exist");
 		
 		if(p.getSellstartdate().compareTo(p.getSellenddate()) >= 0)
 			throw new IllegalArgumentException("Product sell end date is equal or lesser than the sell start date	");
-
-		/*
-		 *
-		if(p.getSize() > 0)
-			throw new IllegalArgumentException("Invalid product size");
-		*/
 		
 		if(p.getWeight().compareTo(BigDecimal.ZERO) <= 0)
 			throw new IllegalArgumentException("Invalid product weigth");
@@ -73,22 +71,22 @@ public class ProductServiceImp implements ProductService{
 		if(p == null) 
 			throw new NullPointerException("product does not exist");
 		
-		if( p.getWeight() != null)
+		if( p.getWeight() == null)
 			throw new NullPointerException();
 		
-		if (p.getProductsubcategory() != null)
+		if (p.getProductsubcategory() == null)
 			throw new NullPointerException();
 		
-		if (p.getSize() != null) 
+		if (p.getSize() == null) 
 			throw new NullPointerException();
 		
-		if (p.getProductsubcategory().getProductcategory() != null)
+		if (p.getProductsubcategory().getProductcategory() == null)
 			throw new NullPointerException();
 		
 		if (sr.existsById(p.getProductsubcategory().getProductsubcategoryid()) &&
 				cr.existsById(p.getProductsubcategory().getProductcategory().getProductcategoryid()))
 		
-		if(p.getProductnumber().equals(null))
+		if(p.getProductnumber() == null)
 			throw new IllegalArgumentException("Product number does not exist");
 		
 		if(p.getSellstartdate().compareTo(p.getSellenddate()) >= 0)
@@ -147,6 +145,11 @@ public class ProductServiceImp implements ProductService{
 	@Override
 	public Iterable<Product> findAll() {
 		return pr.findAll();
+	}
+
+	@Override
+	public Product findById(Integer id) {
+		return pr.findById(id).get();
 	}
 
 }

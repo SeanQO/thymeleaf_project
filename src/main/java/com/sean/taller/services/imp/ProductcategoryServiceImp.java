@@ -26,8 +26,8 @@ public class ProductcategoryServiceImp implements ProductcategoryService{
 		if(pc.equals(null))
 			throw new IllegalArgumentException("Product category not been instanciated");
 		
-		if(!(pc.getName().replaceAll(" ", "").length() < 3))
-			throw new IllegalArgumentException("Not enough characters for product category");
+		if((pc.getName().replaceAll(" ", "").length() < 3))
+			throw new IllegalArgumentException("Not enough characters for product category name");
 
 		pcr.save(pc);
 		
