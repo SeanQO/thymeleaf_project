@@ -2,6 +2,7 @@ package com.sean.taller.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -15,7 +16,13 @@ public class LoginController {
 	    }
 
 	    @GetMapping("/logout")
-	    public String logout(){
+	    public String getLogout(){
+	        return "logout";
+	        
+	    }
+	    
+	    @PostMapping("/logout")
+	    public String postLogout(){
 	        return "logout";
 	        
 	    }

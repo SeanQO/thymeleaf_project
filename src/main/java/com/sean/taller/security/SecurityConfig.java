@@ -20,23 +20,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		httpSecurity.cors().disable().csrf().disable().authorizeRequests()
 		.antMatchers("/api/**").permitAll()
 		
+		
+		//restricting anonymus users acces to indexes by url.
+		
+		.antMatchers("/prod-categ").access("hasRole('" + UserType.ADMINISTRATOR.toString() + "') and hasRole('" + UserType.OPERATOR.toString() + "')") 
+		.antMatchers("/prod-sub-categ").access("hasRole('" + UserType.ADMINISTRATOR.toString() + "') and hasRole('" + UserType.OPERATOR.toString() + "')")
+		.antMatchers("/prod").access("hasRole('" + UserType.ADMINISTRATOR.toString() + "') and hasRole('" + UserType.OPERATOR.toString() + "')")
+		.antMatchers("/work-ord").access("hasRole('" + UserType.ADMINISTRATOR.toString() + "') and hasRole('" + UserType.OPERATOR.toString() + "')")
+		
 		//product category permissions as admin user type.
-		.antMatchers("/prod-categ*").permitAll().antMatchers("/prod-categ/add/**")
+		//.antMatchers("/prod-categ*").permitAll()
+		.antMatchers("/prod-categ/add/**")
 		.hasRole(UserType.ADMINISTRATOR.toString()).antMatchers("/prod-categ/edit/**")
 		.hasRole(UserType.ADMINISTRATOR.toString())
 		
 		//product sub-category permissions as admin user type.
-		.antMatchers("/prod-sub-categ*").permitAll().antMatchers("/prod-sub-categ/add/**")
+		//.antMatchers("/prod-sub-categ*").permitAll()
+		.antMatchers("/prod-sub-categ/add/**")
 		.hasRole(UserType.ADMINISTRATOR.toString()).antMatchers("/prod-sub-categ/edit/**")
 		.hasRole(UserType.ADMINISTRATOR.toString())
 		
 		//product permissions as operator user type.
-		.antMatchers("/prod*").permitAll().antMatchers("/prod/add/**")
+		//.antMatchers("/prod*").permitAll()
+		.antMatchers("/prod/add/**")
 		.hasRole(UserType.OPERATOR.toString()).antMatchers("/prod/edit/**")
 		.hasRole(UserType.OPERATOR.toString())
 		
 		//work order permissions as operator user type.
-		.antMatchers("/work-ord*").permitAll().antMatchers("/work-ord/add/**")
+		//.antMatchers("/work-ord*").permitAll()
+		.antMatchers("/work-ord/add/**")
 		.hasRole(UserType.OPERATOR.toString()).antMatchers("/work-ord/edit/**")
 		.hasRole(UserType.OPERATOR.toString())
 		
