@@ -1,9 +1,6 @@
 package com.sean.taller.services.imp;
 
 import java.util.Optional;
-
-
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.sean.taller.model.prod.Workorder;
@@ -41,6 +38,16 @@ public class WorkorderServiceImp implements WorkorderService{
 
 	@Override
 	public Workorder edit(Workorder wo) {
+		
+		Optional<Workorder> deletedWo = wor.findById(wo.getWorkorderid());
+		Workorder dw = null;
+		
+		if (deletedWo.isEmpty()) {
+			throw new IllegalArgumentException();
+		} else {
+			dw = deletedWo.get();
+		}
+		
 		if(wo.equals(null))
 			throw new NullPointerException("Work order does not exist");
 		
@@ -50,28 +57,14 @@ public class WorkorderServiceImp implements WorkorderService{
 		if(wo.getScrappedqty() < 0)
 			throw new IllegalArgumentException("Invalid scrapped  quantity");
 		
-		if(wo.getDuedate().compareTo(wo.getEnddate()) >= 0)
+		if(wo.getStartdate().compareTo(wo.getEnddate()) >= 0)
 			throw new IllegalArgumentException("Product sell end date is equal or lesser than the sell start date");
 		
-		Optional<Workorder> woInr = wor.findById(wo.getWorkorderid());
-		Workorder real = null;
+		wor.deleteById(dw.getWorkorderid());
+		wor.save(wo);
 		
-		if (woInr.isEmpty()) {
-			throw new IllegalArgumentException();
-		} else {
-			real = woInr.get();
-		}
-		real.setWorkorderid(wo.getWorkorderid());
-		real.setDuedate(wo.getDuedate());
-		real.setEnddate(wo.getEnddate());
-		real.setModifieddate(wo.getModifieddate());
-		real.setOrderqty(wo.getOrderqty());
-		real.setProduct(wo.getProduct());
-		real.setScrappedqty(wo.getScrappedqty());
-		real.setStartdate(wo.getStartdate());
-		real.setWorkorderroutings(wo.getWorkorderroutings());
+		return wo;
 		
-		return real;
 	}
 	
 	@Override
