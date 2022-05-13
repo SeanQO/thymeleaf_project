@@ -1,8 +1,6 @@
 package com.sean.taller.controller;
 
 import java.util.Optional;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +38,9 @@ public class WorkOrderController {
 	
 	@GetMapping("/{id}")
 	public String getWorkOrder(Model model, @PathVariable Integer id) {
-		model.addAttribute("workorder", wos.findById(id));
+		Optional<Workorder> wo = wos.findById(id);
+		model.addAttribute("workorder", wo.get() );
+		
 		return "work-ord/information";
 	}
 	

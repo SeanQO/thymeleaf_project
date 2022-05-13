@@ -5,7 +5,7 @@
 <meta name="viewport"
 	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Product vendor</title>
+<title>Work Order</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -17,9 +17,42 @@
 <link rel="stylesheet" href="../css/shards.min.css">
 </head>
 <body>
-	<div class="container my-5">
-		<h2>Product Categ info</h2>
-		
-	</div>
+<div class="container my-5">
+    <h2>Work Order Info</h2>
+    <p>
+        <a href="/" class="btn btn-primary">Main Menu</a>
+    </p>
+    <div>
+        <h5>Id</h5>
+        <p th:text="${workorder.workorderid}"></p>
+    </div>
+   <div>
+        <h5>End date</h5>
+        <p th:text="${workorder.enddate}"></p>
+    </div>
+    <div>
+        <h5>Modified date</h5>
+        <p th:text="${workorder.modifieddate}"></p>
+    </div>
+    <div>
+        <h5>Order qty</h5>
+        <p th:text="${workorder.orderqty}"></p>
+    </div>
+    <div>
+        <h5>Scrapped qty</h5>
+        <p th:text="${workorder.scrappedqty}"></p>
+    </div>
+    <div>
+        <h5>Start date</h5>
+        <p th:text="${workorder.startdate}"></p>
+    </div>
+    
+    <p>
+        <a th:href="@{/work-ord/edit/{id}(id=${workorder.workorderid})}" class="btn btn-primary">Edit</a>
+    </p>
+    <form>
+        <input type="button" value="Go back!" onclick="history.back()" class="btn btn-primary">
+    </form>
+</div>
 </body>
 </html>
