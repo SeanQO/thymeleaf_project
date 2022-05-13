@@ -7,6 +7,8 @@ public interface WorkorderService {
 
 	public Workorder edit(Workorder wo);
 	
+	public void deleteCar(Integer id);
+	
 	Iterable<Workorder> findAll();
 
 	public Optional<Workorder> findById(Integer id);

@@ -50,7 +50,7 @@ public class WorkOrderController {
 	@PostMapping("/add")
 	public String addWorkOrderPost(Model model, @ModelAttribute Workorder wo) {
 		wos.add(wo);
-		return "redirect:/wfork-ord";
+		return "redirect:/work-ord";
 	}
 
 	//****************************** EDIT ******************************
@@ -74,7 +74,8 @@ public class WorkOrderController {
 	
 	//****************************** DELETE ******************************
 	@GetMapping("/delete/{id}")
-	public String deleteWorkOrder(Model model) {
+	public String deleteWorkOrder(Model model, @PathVariable Integer id) {
+		wos.deleteCar(id);
 		return "work-ord/index";
 	}
 	

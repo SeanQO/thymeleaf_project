@@ -3,6 +3,7 @@ package com.sean.taller.services.imp;
 import java.util.Optional;
 
 
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.sean.taller.model.prod.Workorder;
@@ -82,5 +83,10 @@ public class WorkorderServiceImp implements WorkorderService{
 	public Optional<Workorder> findById(Integer id) {
 		
 		return wor.findById(id);
+	}
+
+	@Override
+	public void deleteCar(Integer id) {
+		wor.deleteById(id);
 	}
 }
