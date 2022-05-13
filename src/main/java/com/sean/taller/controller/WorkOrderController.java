@@ -29,7 +29,11 @@ public class WorkOrderController {
 	//****************************** INDEX & INFO******************************
 	@GetMapping("")
 	public String index(Model model) {
-		model.addAttribute("workorders", wos.findAll());
+		Iterable<Workorder> iwo = wos.findAll();
+		
+		if(iwo.iterator().hasNext()){
+			model.addAttribute("workorders", iwo);
+		}
 		
 		return "work-ord/index";
 	}
@@ -79,5 +83,5 @@ public class WorkOrderController {
 		return "work-ord/index";
 	}
 	
-
+	
 }
