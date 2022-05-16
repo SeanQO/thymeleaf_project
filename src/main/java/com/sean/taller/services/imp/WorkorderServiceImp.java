@@ -79,7 +79,7 @@ public class WorkorderServiceImp implements WorkorderService{
 	}
 
 	@Override
-	public void deleteCar(Integer id) {
+	public void delete(Integer id) {
 		wor.deleteById(id);
 	}
 }

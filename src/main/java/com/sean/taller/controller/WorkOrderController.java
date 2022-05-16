@@ -79,7 +79,7 @@ public class WorkOrderController {
 	//****************************** DELETE ******************************
 	@GetMapping("/delete/{id}")
 	public String deleteWorkOrder(Model model, @PathVariable Integer id) {
-		wos.deleteCar(id);
+		wos.delete(id);
 		return "work-ord/index";
 	}
 	

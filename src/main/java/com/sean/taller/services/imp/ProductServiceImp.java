@@ -1,17 +1,11 @@
 package com.sean.taller.services.imp;
 
 import java.math.BigDecimal;
-
-
 import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.sean.taller.model.prod.Product;
 import com.sean.taller.repository.ProductRepository;
-import com.sean.taller.repository.ProductcategoryRepository;
-import com.sean.taller.repository.ProductsubcategoryRepository;
-import com.sean.taller.repository.UnitmeasureRepository;
 import com.sean.taller.services.intfcs.ProductService;
 
 @Service
@@ -19,16 +13,10 @@ import com.sean.taller.services.intfcs.ProductService;
 public class ProductServiceImp implements ProductService{
 	
 	private ProductRepository pr;
-	private ProductsubcategoryRepository sr;
-	private ProductcategoryRepository cr;
-	private UnitmeasureRepository umr;
 	
 	
-	public ProductServiceImp(ProductRepository pr, ProductsubcategoryRepository sr, ProductcategoryRepository cr, UnitmeasureRepository umr) {
+	public ProductServiceImp(ProductRepository pr) {
 		this.pr = pr;
-		this.sr = sr;
-		this.cr = cr;
-		this.umr = umr;
 	}
 	
 	@Override
@@ -39,18 +27,18 @@ public class ProductServiceImp implements ProductService{
 		if( p.getWeight() == null)
 			throw new NullPointerException();
 		
-		if (p.getProductsubcategory() == null)
-			throw new NullPointerException();
-		
+//		if (p.getProductsubcategory() == null)
+//			throw new NullPointerException();
+//		
 		if (p.getSize() == null) 
 			throw new NullPointerException();
 		
-		if (p.getProductsubcategory().getProductcategory() == null)
-			throw new NullPointerException();
-		
-		if (sr.existsById(p.getProductsubcategory().getProductsubcategoryid()) &&
-				cr.existsById(p.getProductsubcategory().getProductcategory().getProductcategoryid()))
-		
+//		if (p.getProductsubcategory().getProductcategory() == null)
+//			throw new NullPointerException();
+//		
+//		if (sr.existsById(p.getProductsubcategory().getProductsubcategoryid()) &&
+//				cr.existsById(p.getProductsubcategory().getProductcategory().getProductcategoryid()))
+//		
 		
 		if(p.getProductnumber() == null)
 			throw new IllegalArgumentException("Product number does not exist");
@@ -68,24 +56,34 @@ public class ProductServiceImp implements ProductService{
 
 	@Override
 	public Product edit(Product p) {
+		
 		if(p == null) 
 			throw new NullPointerException("product does not exist");
+		
+		Optional<Product> deletedP = pr.findById(p.getProductid());
+		Product dp = null;
+		
+		if (deletedP.isEmpty()) {
+			throw new IllegalArgumentException();
+		} else {
+			dp = deletedP.get();
+		}
 		
 		if( p.getWeight() == null)
 			throw new NullPointerException();
 		
-		if (p.getProductsubcategory() == null)
-			throw new NullPointerException();
+//		if (p.getProductsubcategory() == null)
+//			throw new NullPointerException();
 		
 		if (p.getSize() == null) 
 			throw new NullPointerException();
 		
-		if (p.getProductsubcategory().getProductcategory() == null)
-			throw new NullPointerException();
-		
-		if (sr.existsById(p.getProductsubcategory().getProductsubcategoryid()) &&
-				cr.existsById(p.getProductsubcategory().getProductcategory().getProductcategoryid()))
-		
+//		if (p.getProductsubcategory().getProductcategory() == null)
+//			throw new NullPointerException();
+//		
+//		if (sr.existsById(p.getProductsubcategory().getProductsubcategoryid()) &&
+//				cr.existsById(p.getProductsubcategory().getProductcategory().getProductcategoryid()))
+//		
 		if(p.getProductnumber() == null)
 			throw new IllegalArgumentException("Product number does not exist");
 		
@@ -95,51 +93,9 @@ public class ProductServiceImp implements ProductService{
 		if(p.getWeight().compareTo(BigDecimal.ZERO) <= 0)
 			throw new IllegalArgumentException("Invalid product weigth");
 		
-		Optional<Product> pInr = pr.findById(p.getProductid());
-		Product real = null;
-		
-		if (pInr.isEmpty()) {
-			throw new IllegalArgumentException();
-		} else {
-			real = pInr.get();
-		}
-		
-		real.setBillofmaterials1(p.getBillofmaterials1());
-		real.setBillofmaterials2(p.getBillofmaterials2());
-		real.setClass_(p.getClass_());
-		real.setColor(p.getColor());
-		real.setDaystomanufacture(p.getDaystomanufacture());
-		real.setDiscontinueddate(p.getDiscontinueddate());
-		real.setFinishedgoodsflag(p.getFinishedgoodsflag());
-		real.setListprice(p.getListprice());
-		real.setMakeflag(p.getMakeflag());
-		real.setModifieddate(p.getModifieddate());
-		real.setName(p.getName());
-		real.setProductcosthistories(p.getProductcosthistories());
-		real.setProductdocuments(p.getProductdocuments());
-		real.setProductinventories(p.getProductinventories());
-		real.setProductline(p.getProductline());
-		real.setProductlistpricehistories(p.getProductlistpricehistories());
-		real.setProductmodel(p.getProductmodel());
-		real.setProductnumber(p.getProductnumber());
-		real.setProductproductphotos(p.getProductproductphotos());
-		real.setProductreviews(p.getProductreviews());
-		real.setProductsubcategory(p.getProductsubcategory());
-		real.setReorderpoint(p.getReorderpoint());
-		real.setRowguid(p.getRowguid());
-		real.setSafetystocklevel(p.getSafetystocklevel());
-		real.setSellenddate(p.getSellenddate());
-		real.setSellstartdate(p.getSellstartdate());
-		real.setSize(p.getSize());
-		real.setStandardcost(p.getStandardcost());
-		real.setStyle(p.getStyle());
-		real.setTransactionhistories(p.getTransactionhistories());
-		real.setUnitmeasure1(p.getUnitmeasure1());
-		real.setUnitmeasure2(p.getUnitmeasure2());
-		real.setWeight(p.getWeight());
-		real.setWorkorders(p.getWorkorders());
-		
-		return real;
+		pr.deleteById(dp.getProductid());
+		pr.save(p);
+		return p;
 	}
 	
 	@Override
@@ -150,6 +106,11 @@ public class ProductServiceImp implements ProductService{
 	@Override
 	public Product findById(Integer id) {
 		return pr.findById(id).get();
+	}
+
+	@Override
+	public void delete(Integer id) {
+		pr.deleteById(id);
 	}
 
 }

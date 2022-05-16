@@ -2,7 +2,6 @@ package com.sean.taller.model.prod;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * The persistent class for the product database table.
@@ -38,7 +39,8 @@ public class Product implements Serializable {
 
 	private Integer daystomanufacture;
 
-	private Timestamp discontinueddate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate discontinueddate;
 
 	private String finishedgoodsflag;
 
@@ -46,7 +48,8 @@ public class Product implements Serializable {
 
 	private String makeflag;
 
-	private Timestamp modifieddate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate modifieddate;
 
 	private String name;
 
@@ -60,8 +63,10 @@ public class Product implements Serializable {
 
 	private Integer safetystocklevel;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate sellenddate;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate sellstartdate;
 
 	private String size;
@@ -225,7 +230,7 @@ public class Product implements Serializable {
 		return this.daystomanufacture;
 	}
 
-	public Timestamp getDiscontinueddate() {
+	public LocalDate getDiscontinueddate() {
 		return this.discontinueddate;
 	}
 
@@ -241,7 +246,7 @@ public class Product implements Serializable {
 		return this.makeflag;
 	}
 
-	public Timestamp getModifieddate() {
+	public LocalDate getModifieddate() {
 		return this.modifieddate;
 	}
 
@@ -435,7 +440,7 @@ public class Product implements Serializable {
 		this.daystomanufacture = daystomanufacture;
 	}
 
-	public void setDiscontinueddate(Timestamp discontinueddate) {
+	public void setDiscontinueddate(LocalDate discontinueddate) {
 		this.discontinueddate = discontinueddate;
 	}
 
@@ -451,7 +456,7 @@ public class Product implements Serializable {
 		this.makeflag = makeflag;
 	}
 
-	public void setModifieddate(Timestamp modifieddate) {
+	public void setModifieddate(LocalDate modifieddate) {
 		this.modifieddate = modifieddate;
 	}
 

@@ -7,6 +7,8 @@ public interface ProductService {
 	
 	public Product edit(Product p);
 	
+	public void delete(Integer id);
+	
 	Iterable<Product> findAll();
 	
 	public Product findById(Integer id);

@@ -2,12 +2,15 @@ package com.sean.taller.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.sean.taller.model.prod.Product;
 import com.sean.taller.services.intfcs.ProductService;
 
 @Controller
@@ -21,9 +24,15 @@ public class ProductController {
 
 	}
 
+	//****************************** INDEX & INFO******************************
 	@GetMapping("")
 	public String index(Model model) {
-		model.addAttribute("productvendors", ps.findAll());
+		Iterable<Product> ip = ps.findAll();
+		
+		if(ip.iterator().hasNext()){
+			model.addAttribute("products", ip);
+		}
+		
 		return "/prod/index";
 	}
 	
