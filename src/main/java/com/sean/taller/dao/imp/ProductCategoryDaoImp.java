@@ -22,15 +22,20 @@ public class ProductCategoryDaoImp implements ProductCategoryDao{
 	
 	@Override
 	public Productcategory update(Productcategory pc) {
+		em.getTransaction().begin();
 		em.merge(pc);
+		em.getTransaction().commit();
+		em.close();
 		return pc;
 	}
 	
 	@Transactional
 	@Override
 	public void delete(Productcategory pc) {
+		em.getTransaction().begin();
 		em.remove(pc);
-		
+		em.getTransaction().commit();
+		em.close();
 	}
 
 	@Override
@@ -63,7 +68,10 @@ public class ProductCategoryDaoImp implements ProductCategoryDao{
 
 	@Override
 	public Productcategory save(Productcategory pc) {
+		em.getTransaction().begin();
 		em.persist(pc);
+		em.getTransaction().commit();
+		em.close();
 		return pc;
 	}
 }

@@ -24,15 +24,20 @@ public class ProductDaoImp implements ProductDao{
 
 	@Override
 	public Product update(Product p) {
+		em.getTransaction().begin();
 		em.merge(p);
+		em.getTransaction().commit();
+		em.close();
 		return p;
 	}
 	
 	@Transactional
 	@Override
 	public void delete(Product p) {
+		em.getTransaction().begin();
 		em.remove(p);
-		
+		em.getTransaction().commit();
+		em.close();
 	}
 
 	@Override
@@ -95,7 +100,10 @@ public class ProductDaoImp implements ProductDao{
 */
 	@Override
 	public Product save(Product p) {
+		em.getTransaction().begin();
 		em.persist(p);
+		em.getTransaction().commit();
+		em.close();
 		return p;
 	}
 }

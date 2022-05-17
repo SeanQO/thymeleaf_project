@@ -23,15 +23,20 @@ public class WorkOrderDaoImp implements WorkOrderDao{
 
 	@Override
 	public Workorder update(Workorder w) {
+		em.getTransaction().begin();
 		em.merge(w);
+		em.getTransaction().commit();
+		em.close();
 		return w;
 	}
 	
 	@Transactional
 	@Override
 	public void delete(Workorder w) {
+		em.getTransaction().begin();
 		em.remove(w);
-		
+		em.getTransaction().commit();
+		em.close();
 	}
 
 	@Override
@@ -87,7 +92,10 @@ public class WorkOrderDaoImp implements WorkOrderDao{
 
 	@Override
 	public Workorder save(Workorder w) {
+		em.getTransaction().begin();
 		em.persist(w);
+		em.getTransaction().commit();
+		em.close();
 		return w;
 	}
 }

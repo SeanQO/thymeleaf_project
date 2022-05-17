@@ -24,15 +24,20 @@ public class ProductSubCategoryDaoImp implements ProductSubCategoryDao{
 
 	@Override
 	public Productsubcategory update(Productsubcategory psc) {
+		em.getTransaction().begin();
 		em.merge(psc);
+		em.getTransaction().commit();
+		em.close();
 		return psc;
 	}
 	
 	@Transactional
 	@Override
 	public void delete(Productsubcategory psc) {
+		em.getTransaction().begin();
 		em.remove(psc);
-		
+		em.getTransaction().commit();
+		em.close();
 	}
 
 	@Override
@@ -88,7 +93,11 @@ public class ProductSubCategoryDaoImp implements ProductSubCategoryDao{
 
 	@Override
 	public Productsubcategory save(Productsubcategory psc) {
+		em.getTransaction().begin();
 		em.persist(psc);
+		em.getTransaction().commit();
+		em.close();
+		
 		return psc;
 	}
 }
