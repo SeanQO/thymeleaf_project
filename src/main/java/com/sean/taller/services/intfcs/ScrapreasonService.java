@@ -4,6 +4,5 @@ import com.sean.taller.model.prod.Scrapreason;
 
 public interface ScrapreasonService {
 	public Scrapreason save(Scrapreason sr);
-	
-	public Scrapreason edit(Integer id);
+	public Iterable<Scrapreason> findAll();	
 }

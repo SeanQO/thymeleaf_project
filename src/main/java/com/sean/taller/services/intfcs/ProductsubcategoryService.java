@@ -4,8 +4,8 @@ import com.sean.taller.model.prod.Productsubcategory;
 
 public interface ProductsubcategoryService {
 	public Productsubcategory save(Productsubcategory psc);
-	
 	public Productsubcategory edit(Productsubcategory psc);
-	
-	Iterable<Productsubcategory> findAll();
+	public void delete(Integer id);
+	public Iterable<Productsubcategory> findAll();
+	public Productsubcategory findById(Integer id);
 }

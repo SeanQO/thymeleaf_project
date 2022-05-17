@@ -19,7 +19,7 @@ import com.sean.taller.model.prod.Productcategory;
 public class ProductCategoryDaoImp implements ProductCategoryDao{
 	@PersistenceContext
 	private EntityManager em;
-
+	
 	@Override
 	public Productcategory update(Productcategory pc) {
 		em.merge(pc);

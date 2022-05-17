@@ -109,5 +109,10 @@ public class ProductcategoryServiceImp implements ProductcategoryService{
 		Productcategory pcD = pcrDao.findById(id);
 		pcrDao.delete(pcD);
 	}
+
+	@Override
+	public Productcategory findById(Integer id) {
+		return pcrDao.findById(id);
+	}
 	
 }

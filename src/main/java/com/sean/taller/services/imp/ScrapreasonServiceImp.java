@@ -1,6 +1,7 @@
 package com.sean.taller.services.imp;
 
 import org.springframework.stereotype.Service;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sean.taller.model.prod.Scrapreason;
@@ -16,16 +17,13 @@ public class ScrapreasonServiceImp implements ScrapreasonService{
 		this.srr = srr;
 	}
 	
+	public Iterable<Scrapreason> findAll() {
+		return srr.findAll();
+	}
+	
 	@Override
 	public Scrapreason save(Scrapreason sr) {
-		srr.save(sr);
-		return srr.findById(sr.getScrapreasonid()).get();
-	}
-
-	@Override
-	public Scrapreason edit(Integer id) {
-		return null;
-		
+		return srr.save(sr);
 	}
 
 }

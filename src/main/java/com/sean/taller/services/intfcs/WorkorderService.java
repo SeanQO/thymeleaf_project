@@ -1,5 +1,4 @@
 package com.sean.taller.services.intfcs;
-import java.util.Optional;
 import com.sean.taller.model.prod.Workorder;
 
 public interface WorkorderService {
@@ -11,5 +10,5 @@ public interface WorkorderService {
 	
 	Iterable<Workorder> findAll();
 
-	public Optional<Workorder> findById(Integer id);
+	public Workorder findById(Integer id);
 }

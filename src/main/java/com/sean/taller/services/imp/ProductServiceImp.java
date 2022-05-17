@@ -4,19 +4,31 @@ import java.math.BigDecimal;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.sean.taller.dao.intfcs.ProductDao;
 import com.sean.taller.model.prod.Product;
-import com.sean.taller.repository.ProductRepository;
+import com.sean.taller.model.prod.Productcategory;
+import com.sean.taller.model.prod.Productsubcategory;
+import com.sean.taller.model.prod.Unitmeasure;
+import com.sean.taller.repository.ProductcategoryRepository;
+import com.sean.taller.repository.ProductsubcategoryRepository;
+import com.sean.taller.repository.UnitmeasureRepository;
 import com.sean.taller.services.intfcs.ProductService;
 
 @Service
 @Transactional
 public class ProductServiceImp implements ProductService{
 	
-	private ProductRepository pr;
+	//private ProductRepository pr;
+	private ProductDao pDao;
+	private UnitmeasureRepository umr;
+	private ProductsubcategoryRepository pscr;
+	private ProductcategoryRepository pcr;
 	
-	
-	public ProductServiceImp(ProductRepository pr) {
-		this.pr = pr;
+	public ProductServiceImp(ProductDao pDao, UnitmeasureRepository umr, ProductsubcategoryRepository pscr, ProductcategoryRepository pcr) {
+		this.pDao = pDao;
+		this.umr = umr;
+		this.pscr = pscr;
+		this.pcr = pcr;
 	}
 	
 	@Override
@@ -24,21 +36,25 @@ public class ProductServiceImp implements ProductService{
 		if(p == null) 
 			throw new NullPointerException("product does not exist");
 		
+		Optional<Unitmeasure> um1 = umr.findById(p.getUnitmeasure1().getUnitmeasurecode());
+		Optional<Unitmeasure> um2 = umr.findById(p.getUnitmeasure2().getUnitmeasurecode());
+		Optional<Productsubcategory> psc = pscr.findById(p.getProductsubcategory().getProductsubcategoryid());
+		Optional<Productcategory> pc = pcr.findById(p.getProductsubcategory().getProductcategory().getProductcategoryid());
+		if(um1.isEmpty())
+			throw new IllegalArgumentException("Unit measure 1 does not exist");
+		if(um2.isEmpty())
+			throw new IllegalArgumentException("Unit measure 1 does not exist");
+		if(psc.isEmpty())
+			throw new IllegalArgumentException("product sub category does not exist");
+		if(pc.isEmpty())
+			throw new IllegalArgumentException("product category does not exist");
+		
+		
 		if( p.getWeight() == null)
 			throw new NullPointerException();
-		
-//		if (p.getProductsubcategory() == null)
-//			throw new NullPointerException();
-//		
+	
 		if (p.getSize() == null) 
 			throw new NullPointerException();
-		
-//		if (p.getProductsubcategory().getProductcategory() == null)
-//			throw new NullPointerException();
-//		
-//		if (sr.existsById(p.getProductsubcategory().getProductsubcategoryid()) &&
-//				cr.existsById(p.getProductsubcategory().getProductcategory().getProductcategoryid()))
-//		
 		
 		if(p.getProductnumber() == null)
 			throw new IllegalArgumentException("Product number does not exist");
@@ -49,41 +65,40 @@ public class ProductServiceImp implements ProductService{
 		if(p.getWeight().compareTo(BigDecimal.ZERO) <= 0)
 			throw new IllegalArgumentException("Invalid product weigth");
 		
-		pr.save(p);
+		p.setUnitmeasure1(um1.get());
+		p.setUnitmeasure2(um2.get());
+		p.setProductsubcategory(psc.get());
+		p.getProductsubcategory().setProductcategory(pc.get());
 		
-		return pr.findById(p.getProductid()).get();
+		pDao.save(p);
+		
+		return p;
 	}
 
 	@Override
 	public Product edit(Product p) {
-		
 		if(p == null) 
 			throw new NullPointerException("product does not exist");
+		Optional<Unitmeasure> um1 = umr.findById(p.getUnitmeasure1().getUnitmeasurecode());
+		Optional<Unitmeasure> um2 = umr.findById(p.getUnitmeasure2().getUnitmeasurecode());
+		Optional<Productsubcategory> psc = pscr.findById(p.getProductsubcategory().getProductsubcategoryid());
+		Optional<Productcategory> pc = pcr.findById(p.getProductsubcategory().getProductcategory().getProductcategoryid());
 		
-		Optional<Product> deletedP = pr.findById(p.getProductid());
-		Product dp = null;
-		
-		if (deletedP.isEmpty()) {
-			throw new IllegalArgumentException();
-		} else {
-			dp = deletedP.get();
-		}
+		if(um1.isEmpty())
+			throw new IllegalArgumentException("Unit measure 1 does not exist");
+		if(um2.isEmpty())
+			throw new IllegalArgumentException("Unit measure 1 does not exist");
+		if(psc.isEmpty())
+			throw new IllegalArgumentException("product sub category does not exist");
+		if(pc.isEmpty())
+			throw new IllegalArgumentException("product category does not exist");
 		
 		if( p.getWeight() == null)
 			throw new NullPointerException();
 		
-//		if (p.getProductsubcategory() == null)
-//			throw new NullPointerException();
-		
 		if (p.getSize() == null) 
 			throw new NullPointerException();
 		
-//		if (p.getProductsubcategory().getProductcategory() == null)
-//			throw new NullPointerException();
-//		
-//		if (sr.existsById(p.getProductsubcategory().getProductsubcategoryid()) &&
-//				cr.existsById(p.getProductsubcategory().getProductcategory().getProductcategoryid()))
-//		
 		if(p.getProductnumber() == null)
 			throw new IllegalArgumentException("Product number does not exist");
 		
@@ -93,24 +108,36 @@ public class ProductServiceImp implements ProductService{
 		if(p.getWeight().compareTo(BigDecimal.ZERO) <= 0)
 			throw new IllegalArgumentException("Invalid product weigth");
 		
-		pr.deleteById(dp.getProductid());
-		pr.save(p);
-		return p;
+		Product pD = pDao.findById(p.getProductid());
+		pD.setWeight(p.getWeight());
+		pD.setSize(p.getSize());
+		pD.setProductnumber(p.getProductnumber());
+		pD.setSellstartdate(p.getSellstartdate());
+		pD.setSellenddate(p.getSellenddate());
+		
+		pD.setUnitmeasure1(um1.get());
+		pD.setUnitmeasure2(um2.get());
+		pD.setProductsubcategory(psc.get());
+		pD.getProductsubcategory().setProductcategory(pc.get());
+		
+		
+		return pD;
 	}
 	
 	@Override
 	public Iterable<Product> findAll() {
-		return pr.findAll();
+		return pDao.findAll();
 	}
 
 	@Override
 	public Product findById(Integer id) {
-		return pr.findById(id).get();
+		return pDao.findById(id);
 	}
 
 	@Override
 	public void delete(Integer id) {
-		pr.deleteById(id);
+		Product pD = pDao.findById(id);
+		pDao.delete(pD);
 	}
 
 }

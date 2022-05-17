@@ -7,27 +7,22 @@ import com.sean.taller.repository.UnitmeasureRepository;
 import com.sean.taller.services.intfcs.UnitmeasureService;
 @Service
 public class UnitmeasureServiceImp implements UnitmeasureService {
-	
-	@Autowired
 	private UnitmeasureRepository umr;
+
+	@Autowired
+	public UnitmeasureServiceImp(UnitmeasureRepository umr) {
+		this.umr = umr;
+	}
 	
-	@Override
-	public <S extends Unitmeasure> S save(S um) {
-		return umr.save(um);
-		
+	public Iterable<Unitmeasure> findAll() {
+		return umr.findAll();
 	}
 	
 	@Override
-	public Unitmeasure findById(long id) {
-		return umr.findById(id).get();
+	public Unitmeasure save(Unitmeasure vendor) {
+		// TODO Auto-generated method stub
+		return umr.save(vendor);
 	}
 
-	@Override
-	public void editUnitmeasure(Unitmeasure um) {
-		Unitmeasure umEntity = findById(um.getUnitmeasurecode());
-		umEntity.setName(um.getName());
-		save(umEntity);
-		
-	}
 	
 }

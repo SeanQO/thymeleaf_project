@@ -1,79 +1,93 @@
 package com.sean.taller.services.imp;
 
 import java.util.Optional;
-
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.sean.taller.dao.intfcs.ProductSubCategoryDao;
 import com.sean.taller.model.prod.Productcategory;
 import com.sean.taller.model.prod.Productsubcategory;
 import com.sean.taller.repository.ProductcategoryRepository;
-import com.sean.taller.repository.ProductsubcategoryRepository;
 import com.sean.taller.services.intfcs.ProductsubcategoryService;
 
 @Service
 @Transactional
 public class ProductsubcategoryServiceImp implements ProductsubcategoryService{
 
-	private ProductsubcategoryRepository pscr;
+//	private ProductsubcategoryRepository pscr;
+	private ProductSubCategoryDao pscDao;
 	private ProductcategoryRepository pcr;
 	
-	public ProductsubcategoryServiceImp(ProductsubcategoryRepository pscr, ProductcategoryRepository pcr) {
-		this.pscr = pscr;
+//	public ProductsubcategoryServiceImp(ProductsubcategoryRepository pscr, ProductcategoryRepository pcr) {
+//		this.pscr = pscr;
+//		this.pcr = pcr;
+//	}
+	
+	public ProductsubcategoryServiceImp(ProductSubCategoryDao pscDao, ProductcategoryRepository pcr) {
+		this.pscDao = pscDao;
 		this.pcr = pcr;
 	}
 	
 	@Override
 	public Productsubcategory save(Productsubcategory psc) {
-		if(psc.equals(null))
+		if(psc == null)
 			throw new IllegalArgumentException("Product sub-category is not instantiated");
 		
 		if((psc.getName().replaceAll(" ", "").length() < 5))
 			throw new IllegalArgumentException("Not enough characters for product category");
 		
-		Optional<Productcategory> tempPc = pcr.findById(psc.getProductcategory().getProductcategoryid());
+		Optional<Productcategory> pc = pcr.findById(psc.getProductcategory().getProductcategoryid());
 		
-		if(tempPc == null)
+		if(pc.isEmpty())
 			throw new IllegalArgumentException("Product category does not exist");
 		
-		pscr.save(psc);
+		psc.setProductcategory(pc.get());
 		
-		return pscr.findById(psc.getProductsubcategoryid()).get();
+		pscDao.save(psc);
+		
+		return psc;
 	}
 
 	@Override
 	public Productsubcategory edit(Productsubcategory psc) {
-		if(psc.equals(null))
+		if(psc == null)
 			throw new IllegalArgumentException("Product sub-category is not instantiated");
+		
+		Optional<Productcategory> pc = pcr.findById(psc.getProductcategory().getProductcategoryid());
+		
+		if(pc == null)
+			throw new IllegalArgumentException("Product category does not exist");
 		
 		if((psc.getName().replaceAll(" ", "").length() < 5))
 			throw new IllegalArgumentException("Not enough characters for product category");
 		
-		Optional<Productcategory> tempPc = pcr.findById(psc.getProductcategory().getProductcategoryid());
+		Productsubcategory pscD = pscDao.findById(psc.getProductsubcategoryid());
 		
-		if(tempPc == null)
-			throw new IllegalArgumentException("Product category does not exist");
+		pscD.setModifieddate(psc.getModifieddate());
+		pscD.setName(psc.getName());
+		pscD.setProductcategory(psc.getProductcategory());
+		pscD.setProducts(psc.getProducts());
+		pscD.setRowguid(psc.getRowguid());
 		
-		Optional<Productsubcategory> pscInr = pscr.findById(psc.getProductsubcategoryid());
-		Productsubcategory real = null;
+		pscD.setProductcategory(pc.get());
 		
-		if (pscInr.isEmpty()) {
-			throw new IllegalArgumentException();
-		} else {
-			real = pscInr.get();
-		}
-		real.setModifieddate(psc.getModifieddate());
-		real.setName(psc.getName());
-		real.setProductcategory(psc.getProductcategory());
-		real.setProducts(psc.getProducts());
-		real.setRowguid(psc.getRowguid());
-		
-		return real;
+		pscDao.update(pscD);
+		return pscD;
 	}
 	
 	@Override
 	public Iterable<Productsubcategory> findAll() {
-		return pscr.findAll();
+		return pscDao.findAll();
+	}
+
+	@Override
+	public void delete(Integer id) {
+		Productsubcategory pscD = pscDao.findById(id);
+		pscDao.delete(pscD);
+	}
+
+	@Override
+	public Productsubcategory findById(Integer id) {
+		return pscDao.findById(id);
 	}
 
 }
