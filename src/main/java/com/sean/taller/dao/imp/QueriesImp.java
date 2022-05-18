@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sean.taller.dao.intfcs.Queries;
 import com.sean.taller.model.prod.Product;
+import com.sean.taller.model.prod.Productcategory;
 import com.sean.taller.model.prod.Productsubcategory;
 
 @Repository
@@ -21,15 +22,15 @@ public class QueriesImp implements Queries{
 	private EntityManager entityManager;
 	
 	@Override
-	public List<Productsubcategory> findProdCategByProdSubCateg() {
-		String jpql = "";
+	public List<Productsubcategory> findProdCategByProdSubCateg(Productcategory pc) {
+		String jpql = "SELECT psc FROM Productsubcategory psc, Productcategory c WHERE c.modifieddate = psc.modifieddate";
 		Query query = entityManager.createQuery(jpql);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Product> findProductByWorkOrder() {
-		String jpql = "";
+		String jpql = "SELECT p FROM Product p WHERE SIZE(p.workorders) >= 2";
 		Query query = entityManager.createQuery(jpql);
 		return query.getResultList();
 	}
