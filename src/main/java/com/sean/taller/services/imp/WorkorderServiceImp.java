@@ -93,6 +93,8 @@ public class WorkorderServiceImp implements WorkorderService{
 		wD.setProduct(p.get());
 		wD.setScrapreason(s.get());
 		
+		woDao.update(wD);
+		
 		return wD;
 		
 	}

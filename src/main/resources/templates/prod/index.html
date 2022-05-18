@@ -27,26 +27,26 @@
 						<thead>
 							<tr>
 								<th>ID</th>
-								<th>Due date</th>
-								<th>End date</th>
-								<th>Modified date</th>
-								<th>Order qty</th>
-								<th>Scrapped qty</th>
-								<th>Start dat</th>
+								<th>name</th>
+								<th>productnumber</th>
+								<th>productsubcategory</th>
+								<th>productcategory</th>
+								<th>size</th>
+								<th>weight</th>
 								<th>Search</th>
 								<th>Edit</th>
 								<th>Delete</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="w : ${workorders}">
-								<td class="text-info" th:text="${w.workorderid}"></td>
-								<td class="text-info" th:text="${w.duedate}"></td>
-								<td class="text-info" th:text="${w.enddate}"></td>
-								<td class="text-info" th:text="${w.modifieddate}"></td>
-								<td class="text-info" th:text="${w.orderqty}"></td>
-								<td class="text-info" th:text="${w.scrappedqty}"></td>
-								<td class="text-info" th:text="${w.startdate}"></td>
+							<tr th:each="product : ${products}">
+								<td th:text="${product.productid}"></td>
+								<td th:text="${product.name}"></td>
+								<td th:text="${product.productnumber}"></td>
+								<td th:text="${product.productsubcategory.name}"></td>
+								<td th:text="${product.productsubcategory.productcategory.name}"></td>
+								<td th:text="${product.unitmeasure1.name}"></td>
+								<td th:text="${product.unitmeasure2.name}"></td>
 									
 								<td><a
 									th:href="@{/work-ord/{id}(id=${w.workorderid})}"
@@ -68,7 +68,7 @@
 					</table>
 				</div>
 				<p class="my-7">
-					<a href="/work-ord/add" class="btn btn-primary"><i
+					<a href="/prod/add" class="btn btn-primary"><i
 						class="fas fa-user-plus ml-2"></i></a>
 				</p>
 			</div>

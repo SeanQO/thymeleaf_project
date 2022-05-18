@@ -1,27 +1,30 @@
 package com.sean.taller.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.sean.taller.model.prod.Product;
+import com.sean.taller.services.imp.ProductsubcategoryServiceImp;
+import com.sean.taller.services.imp.UnitmeasureServiceImp;
 import com.sean.taller.services.intfcs.ProductService;
 
 @Controller
 @RequestMapping("prod")
 public class ProductController {
 	private ProductService ps;
-
+	private ProductsubcategoryServiceImp pscs;
+	private UnitmeasureServiceImp ums;
+	
 	@Autowired
-	public ProductController(ProductService ps) {
+	public ProductController(ProductService ps, ProductsubcategoryServiceImp  pscs, UnitmeasureServiceImp  ums) {
 		this.ps = ps;
-
+		this.pscs = pscs;
+		this.ums = ums;
 	}
 
 	//****************************** INDEX & INFO******************************
@@ -39,32 +42,41 @@ public class ProductController {
 	
 	@GetMapping("/edit/{id}")
 	public String editProductvendor(Model model, @PathVariable("id") Integer id) {
-
+		Product p = ps.findById(id);
+		model.addAttribute("product",p);
+		model.addAttribute("Productsubcategory",pscs.findAll());
+		model.addAttribute("unitmeasure1",pscs.findAll());
 		return "prod/edit";
 	}
 
 	@PostMapping("/edit/{id}")
-	public String postEditProduct(Model model) {
-
+	public String postEditProduct(Model model, @ModelAttribute Product p) {
+		ps.save(p);
 		return "prod/edit";
 	}
 	@GetMapping("/add")
 	public String addProductvendor(Model model) {
+		model.addAttribute("product", new Product());
+		model.addAttribute("productsubcategories", pscs.findAll());
+		model.addAttribute("unitmeasures", ums.findAll());
 		return "prod/add";
 	}
 
 	@PostMapping("/add")
-	public String addProductvendorPost(Model model) {
+	public String addProductvendorPost(Model model, @ModelAttribute Product p) {
+		ps.save(p);
 		return "prod/add";
 	}
 	
 	@GetMapping("/delete/{id}")
-	public String deleteProductvendor(Model model) {
+	public String deleteProductvendor(Model model, @PathVariable Integer id) {
+		ps.delete(id);
 		return "prod/index";
 	}
 	@GetMapping("/{id}")
-	public String getProductvendor(Model model) {
-
+	public String getProductvendor(Model model, @PathVariable("id") Integer id) {
+		Product p = ps.findById(id);
+		model.addAttribute("product",p);
 		return "prod/information";
 	}
 }
