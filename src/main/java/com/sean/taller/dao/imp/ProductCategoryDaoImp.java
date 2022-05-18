@@ -1,18 +1,13 @@
 package com.sean.taller.dao.imp;
 
 import java.util.List;
-
-
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.sean.taller.dao.intfcs.ProductCategoryDao;
 import com.sean.taller.model.prod.Productcategory;
 
@@ -20,31 +15,22 @@ import com.sean.taller.model.prod.Productcategory;
 @Scope("singleton")
 public class ProductCategoryDaoImp implements ProductCategoryDao{
 	@PersistenceUnit
-	private EntityManagerFactory e;
+	private EntityManager em;
 	
 	@Override
 	public Productcategory update(Productcategory pc) {
-		EntityManager em = e.createEntityManager();
-		em.getTransaction().begin();
 		em.merge(pc);
-		em.getTransaction().commit();
-		em.close();
 		return pc;
 	}
 	
 	@Transactional
 	@Override
 	public void delete(Productcategory pc) {
-		EntityManager em = e.createEntityManager();
-		em.getTransaction().begin();
 		em.remove(pc);
-		em.getTransaction().commit();
-		em.close();
 	}
 
 	@Override
 	public Productcategory findById(Integer pcId) {
-		EntityManager em = e.createEntityManager();
 		String jpql = "Select pc from Productcategory pc where pc.productcategoryid=:id";
 		Query query = em.createQuery(jpql);
 		query.setParameter("id", pcId);
@@ -65,7 +51,6 @@ public class ProductCategoryDaoImp implements ProductCategoryDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Productcategory> findAll() {
-		EntityManager em = e.createEntityManager();
 		String query = "Select pc from Productcategory pc";
 		List<Productcategory> pcs = em.createQuery(query).getResultList();
 		
@@ -74,11 +59,7 @@ public class ProductCategoryDaoImp implements ProductCategoryDao{
 
 	@Override
 	public Productcategory save(Productcategory pc) {
-		EntityManager em = e.createEntityManager();
-		em.getTransaction().begin();
 		em.persist(pc);
-		em.getTransaction().commit();
-		em.close();
 		return pc;
 	}
 }

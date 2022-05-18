@@ -2,7 +2,6 @@ package com.sean.taller.dao.imp;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
@@ -19,31 +18,22 @@ import com.sean.taller.model.prod.Workorder;
 @SuppressWarnings("unchecked")
 public class WorkOrderDaoImp implements WorkOrderDao{
 	@PersistenceUnit
-	private EntityManagerFactory e;
+	private EntityManager em;
 
 	@Override
 	public Workorder update(Workorder w) {
-		EntityManager em = e.createEntityManager();
-		em.getTransaction().begin();
 		em.merge(w);
-		em.getTransaction().commit();
-		em.close();
 		return w;
 	}
 	
 	@Transactional
 	@Override
 	public void delete(Workorder w) {
-		EntityManager em = e.createEntityManager();
-		em.getTransaction().begin();
 		em.remove(w);
-		em.getTransaction().commit();
-		em.close();
 	}
 
 	@Override
 	public Workorder findById(Integer wId) {
-		EntityManager em = e.createEntityManager();
 		String jpql = "Select w from Workorder w where w.workorderid=:id";
 		Query query = em.createQuery(jpql);
 		query.setParameter("id", wId);
@@ -64,7 +54,6 @@ public class WorkOrderDaoImp implements WorkOrderDao{
 	
 	@Override
 	public List<Workorder> findAll() {
-		EntityManager em = e.createEntityManager();
 		String query = "Select w from Workorder w";
 		List<Workorder> ws = em.createQuery(query).getResultList();
 		
@@ -73,7 +62,6 @@ public class WorkOrderDaoImp implements WorkOrderDao{
 
 	@Override
 	public List<Workorder> findByScrapReason(Integer scrapreasonid) {
-		EntityManager em = e.createEntityManager();
 		String jpql = "Select w from Workorder w where w.scrapreasonid=:id";
 		Query query = em.createQuery(jpql);
 		query.setParameter("id", scrapreasonid);
@@ -86,7 +74,6 @@ public class WorkOrderDaoImp implements WorkOrderDao{
 
 	@Override
 	public List<Workorder> findByQty(Integer orderqty) {
-		EntityManager em = e.createEntityManager();
 		String jpql = "Select w from Workorder w where w.orderqty=:qty";
 		Query query = em.createQuery(jpql);
 		query.setParameter("qty", orderqty);
@@ -98,11 +85,6 @@ public class WorkOrderDaoImp implements WorkOrderDao{
 
 	@Override
 	public Workorder save(Workorder w) {
-		EntityManager em = e.createEntityManager();
-		em.getTransaction().begin();
-		em.persist(w);
-		em.getTransaction().commit();
-		em.close();
 		return w;
 	}
 }

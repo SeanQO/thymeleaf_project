@@ -1,6 +1,8 @@
 package com.sean.taller.test.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +21,33 @@ import com.sean.taller.model.prod.Unitmeasure;
 @DataJpaTest
 @ContextConfiguration(classes = Application.class)
 class ProductDaoTest {
-
 	@Autowired
 	private ProductDaoImp pd;
+	
+	@BeforeAll
+	public void setup() {
+		Productcategory pc1 = new Productcategory();
+		pc1.setName("Phones");
+		
+		Productsubcategory psc1 = new Productsubcategory();
+		psc1.setName("IOS");
+		psc1.setProductcategory(pc1);
+		
+		Unitmeasure um1 = new Unitmeasure();
+		um1.setName("kg2");
+		Unitmeasure um2 = new Unitmeasure();
+		um2.setName("ml2");
+		
+		Product p1 = new Product();
+		p1.setName("iphone");
+		p1.setDaystomanufacture(1250);
+		p1.setProductnumber("123");
+		p1.setProductsubcategory(psc1);
+		p1.setUnitmeasure1(um1);
+		p1.setUnitmeasure2(um2);
+		pd.save(p1);
+	}
+	
 	
 	@Test
 	public void save() {
@@ -33,9 +59,9 @@ class ProductDaoTest {
 		psc1.setProductcategory(pc1);
 		
 		Unitmeasure um1 = new Unitmeasure();
-		um1.setName("kg");
+		um1.setName("kg2");
 		Unitmeasure um2 = new Unitmeasure();
-		um2.setName("pounds");
+		um2.setName("ml2");
 		
 		Product p1 = new Product();
 		p1.setName("iphone");
@@ -46,33 +72,27 @@ class ProductDaoTest {
 		p1.setUnitmeasure2(um2);
 		
 		pd.save(p1);
-		assertTrue(pd.findAll().size() == 1);
 		Product pfromDao = pd.findById(p1.getProductid());
 		assertEquals(pfromDao.getProductid(), p1.getProductid());
-		
 	}
 	
-//	@Test
-//	public void edit() {
-//		Product p = pd.findById(1);
-//		
-//		p.setName("cambiado");
-//		
-//		pd.update(p);
-//		
-//		assertTrue(pd.findById(1).getName().equals("cambiado"));
-//	}
-//	
-//	@Test
-//	public void find() {
-//		Product p = pd.findById(3);
-//		
-//		assertTrue(p.getName().equals("perico"));
-//	}
-//	
-//	@Test
-//	public void findAll() {
-//		assertTrue(pd.findAll().size() == 4);
-//	}
+	@Test
+	public void edit() {
+		Product p = pd.findById(1);
+		p.setName("cambiado");
+		pd.update(p);
+		assertTrue(pd.findById(1).getName().equals("cambiado"));
+	}
+	
+	@Test
+	public void find() {
+		Product p = pd.findById(1);
+		assertTrue(p.getName().equals("iphone"));
+	}
+	
+	@Test
+	public void findAll() {
+		assertTrue(pd.findAll().size() >= 1);
+	}
 
 }
