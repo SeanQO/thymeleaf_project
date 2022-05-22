@@ -51,8 +51,8 @@ public class ProductController {
 
 	@PostMapping("/edit/{id}")
 	public String postEditProduct(Model model, @ModelAttribute Product p) {
-		ps.save(p);
-		return "prod/edit";
+		ps.edit(p);
+		return "redirect:/prod";
 	}
 	@GetMapping("/add")
 	public String addProductvendor(Model model) {
@@ -65,13 +65,13 @@ public class ProductController {
 	@PostMapping("/add")
 	public String addProductvendorPost(Model model, @ModelAttribute Product p) {
 		ps.save(p);
-		return "prod/add";
+		return "redirect:/prod";
 	}
 	
 	@GetMapping("/delete/{id}")
 	public String deleteProductvendor(Model model, @PathVariable Integer id) {
 		ps.delete(id);
-		return "prod/index";
+		return "redirect:/prod";
 	}
 	@GetMapping("/{id}")
 	public String getProductvendor(Model model, @PathVariable("id") Integer id) {

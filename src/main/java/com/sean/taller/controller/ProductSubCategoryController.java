@@ -9,22 +9,33 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.sean.taller.model.prod.Productsubcategory;
+import com.sean.taller.repository.ProductcategoryRepository;
+import com.sean.taller.services.intfcs.ProductcategoryService;
 import com.sean.taller.services.intfcs.ProductsubcategoryService;
 
 @Controller
 @RequestMapping("prod-sub-categ")
 public class ProductSubCategoryController {
-	private ProductsubcategoryService pscs;
-
 	@Autowired
-	public ProductSubCategoryController(ProductsubcategoryService pscs) {
+	private ProductsubcategoryService pscs;
+	@Autowired
+	private ProductcategoryService pcs;
+	
+	@Autowired
+	public ProductSubCategoryController(ProductsubcategoryService pscs, ProductcategoryService pcs) {
 		this.pscs = pscs;
-
+		this.pcs = pcs;
 	}
 
 	@GetMapping("")
 	public String index(Model model) {
-		model.addAttribute("productvendors", pscs.findAll());
+		Iterable<Productsubcategory> psc = pscs.findAll();
+		
+		if(psc.iterator().hasNext()){
+			model.addAttribute("productsubcategs", psc);
+		}
 		return "/prod-sub-categ/index";
 	}
 	

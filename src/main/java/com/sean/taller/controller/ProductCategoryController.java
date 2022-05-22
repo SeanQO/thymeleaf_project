@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sean.taller.model.prod.Productcategory;
-import com.sean.taller.model.prod.Workorder;
 import com.sean.taller.services.intfcs.ProductcategoryService;
 
 @Controller

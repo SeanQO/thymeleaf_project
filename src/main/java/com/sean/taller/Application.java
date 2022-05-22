@@ -54,9 +54,14 @@ public class Application {
 		pc1.setRowguid(1);
 		pcs.save(pc1);
 		
+		System.out.println("INCONTEXT" + pcs.findAll());
+		
 		ProductsubcategoryService pscs = c.getBean(ProductsubcategoryService.class);
 		Productsubcategory psc1 = new Productsubcategory();
 		psc1.setName("Android");
+		date = LocalDate.now();    
+		psc1.setModifieddate(date);
+		psc1.setRowguid(1);
 		psc1.setProductcategory(pc1);
 		pscs.save(psc1);
 		
