@@ -3,7 +3,7 @@ package com.sean.taller.dao.imp;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -13,19 +13,22 @@ import com.sean.taller.model.prod.Productcategory;
 
 @Repository
 @Scope("singleton")
+@SuppressWarnings("unchecked")
 public class ProductCategoryDaoImp implements ProductCategoryDao{
-	@PersistenceUnit
+	@PersistenceContext
 	private EntityManager em;
 	
 	@Override
+	@Transactional
 	public Productcategory update(Productcategory pc) {
 		em.merge(pc);
 		return pc;
 	}
 	
-	@Transactional
 	@Override
-	public void delete(Productcategory pc) {
+	@Transactional
+	public void delete(Integer Id) {
+		Productcategory pc = findById(Id);
 		em.remove(pc);
 	}
 
@@ -41,14 +44,13 @@ public class ProductCategoryDaoImp implements ProductCategoryDao{
 			pc = (Productcategory) query.getSingleResult();
 			
 		} catch (NoResultException e) {
-			throw new NoResultException();
+			return null;
 			
 		}
 		
 		return pc;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Productcategory> findAll() {
 		String query = "Select pc from Productcategory pc";
@@ -58,6 +60,7 @@ public class ProductCategoryDaoImp implements ProductCategoryDao{
 	}
 
 	@Override
+	@Transactional
 	public Productcategory save(Productcategory pc) {
 		em.persist(pc);
 		return pc;

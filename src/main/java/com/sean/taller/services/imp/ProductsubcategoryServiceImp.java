@@ -81,8 +81,7 @@ public class ProductsubcategoryServiceImp implements ProductsubcategoryService{
 
 	@Override
 	public void delete(Integer id) {
-		Productsubcategory pscD = pscDao.findById(id);
-		pscDao.delete(pscD);
+		pscDao.delete(id);
 	}
 
 	@Override

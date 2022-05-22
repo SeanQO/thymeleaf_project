@@ -3,13 +3,11 @@ package com.sean.taller.dao.imp;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.sean.taller.dao.intfcs.WorkOrderDao;
 import com.sean.taller.model.prod.Workorder;
 
@@ -17,19 +15,23 @@ import com.sean.taller.model.prod.Workorder;
 @Scope("singleton")
 @SuppressWarnings("unchecked")
 public class WorkOrderDaoImp implements WorkOrderDao{
-	@PersistenceUnit
+	
+	@PersistenceContext
 	private EntityManager em;
 
 	@Override
+	@Transactional
 	public Workorder update(Workorder w) {
 		em.merge(w);
 		return w;
 	}
 	
-	@Transactional
+	
 	@Override
-	public void delete(Workorder w) {
-		em.remove(w);
+	@Transactional
+	public void delete(Integer id) {
+		Workorder wo = findById(id);
+		em.remove(wo);
 	}
 
 	@Override
@@ -44,7 +46,7 @@ public class WorkOrderDaoImp implements WorkOrderDao{
 			w = (Workorder) query.getSingleResult();
 			
 		} catch (NoResultException e) {
-			throw new NoResultException();
+			return null;
 			
 		}
 		
@@ -54,7 +56,7 @@ public class WorkOrderDaoImp implements WorkOrderDao{
 	
 	@Override
 	public List<Workorder> findAll() {
-		String query = "Select w from Workorder w";
+		String query = "SELECT w FROM Workorder w";
 		List<Workorder> ws = em.createQuery(query).getResultList();
 		
 		return ws;
@@ -62,7 +64,7 @@ public class WorkOrderDaoImp implements WorkOrderDao{
 
 	@Override
 	public List<Workorder> findByScrapReason(Integer scrapreasonid) {
-		String jpql = "Select w from Workorder w where w.scrapreasonid=:id";
+		String jpql = "Select w from Workorder w where w.scrapreason.scrapreasonid=:id";
 		Query query = em.createQuery(jpql);
 		query.setParameter("id", scrapreasonid);
 		
@@ -84,7 +86,9 @@ public class WorkOrderDaoImp implements WorkOrderDao{
 	}
 
 	@Override
+	@Transactional
 	public Workorder save(Workorder w) {
+		em.persist(w);
 		return w;
 	}
 }

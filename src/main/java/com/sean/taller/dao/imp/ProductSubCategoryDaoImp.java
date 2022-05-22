@@ -3,7 +3,7 @@ package com.sean.taller.dao.imp;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -15,18 +15,20 @@ import com.sean.taller.model.prod.Productsubcategory;
 @Scope("singleton")
 @SuppressWarnings("unchecked")
 public class ProductSubCategoryDaoImp implements ProductSubCategoryDao{
-	@PersistenceUnit
+	@PersistenceContext
 	private EntityManager em;
 
 	@Override
+	@Transactional
 	public Productsubcategory update(Productsubcategory psc) {
 		em.merge(psc);
 		return psc;
 	}
 	
-	@Transactional
 	@Override
-	public void delete(Productsubcategory psc) {
+	@Transactional
+	public void delete(Integer pscId) {
+		Productsubcategory psc = findById(pscId);
 		em.remove(psc);
 	}
 
@@ -42,7 +44,7 @@ public class ProductSubCategoryDaoImp implements ProductSubCategoryDao{
 			psc = (Productsubcategory) query.getSingleResult();
 			
 		} catch (NoResultException e) {
-			throw new NoResultException();
+			return null;
 			
 		}
 		
@@ -59,7 +61,7 @@ public class ProductSubCategoryDaoImp implements ProductSubCategoryDao{
 
 	@Override
 	public List<Productsubcategory> findByCategory(Integer pcId) {
-		String jpql = "Select psc from Productsubcategory psc where psc.productcategoryid=:id";
+		String jpql = "Select psc from Productsubcategory psc where psc.productcategory.productcategoryid=:id";
 		Query query = em.createQuery(jpql);
 		query.setParameter("id", pcId);
 		
@@ -82,6 +84,7 @@ public class ProductSubCategoryDaoImp implements ProductSubCategoryDao{
 	}
 
 	@Override
+	@Transactional
 	public Productsubcategory save(Productsubcategory psc) {
 		em.persist(psc);
 		return psc;

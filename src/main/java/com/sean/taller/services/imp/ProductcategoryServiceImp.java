@@ -84,7 +84,7 @@ public class ProductcategoryServiceImp implements ProductcategoryService{
 		if(pc.equals(null))
 			throw new IllegalArgumentException("Product category is not instantiated");
 		
-		if(!(pc.getName().replaceAll(" ", "").length() < 3))
+		if(!(pc.getName().replaceAll(" ", "").length() > 3))
 			throw new IllegalArgumentException("Not enough characters for product category");
 		
 		Productcategory pcD = pcrDao.findById(pc.getProductcategoryid());
@@ -92,7 +92,6 @@ public class ProductcategoryServiceImp implements ProductcategoryService{
 		pcD.setModifieddate(pc.getModifieddate());
 		pcD.setName(pc.getName());
 		pcD.setRowguid(pc.getRowguid());
-		pcD.setProductsubcategories(pc.getProductsubcategories());
 		
 		pcrDao.update(pcD);
 		
@@ -106,8 +105,7 @@ public class ProductcategoryServiceImp implements ProductcategoryService{
 
 	@Override
 	public void delete(Integer id) {
-		Productcategory pcD = pcrDao.findById(id);
-		pcrDao.delete(pcD);
+		pcrDao.delete(id);
 	}
 
 	@Override

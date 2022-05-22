@@ -1,5 +1,7 @@
 package com.sean.taller;
 
+import java.time.LocalDate;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -47,6 +49,9 @@ public class Application {
 		
 		Productcategory pc1 = new Productcategory();
 		pc1.setName("Phone");
+		LocalDate date = LocalDate.now();    
+		pc1.setModifieddate(date);
+		pc1.setRowguid(1);
 		pcs.save(pc1);
 		
 		ProductsubcategoryService pscs = c.getBean(ProductsubcategoryService.class);

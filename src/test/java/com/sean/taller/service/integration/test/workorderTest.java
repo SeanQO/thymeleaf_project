@@ -1,9 +1,7 @@
 package com.sean.taller.service.integration.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.time.LocalDate;
-import java.util.Optional;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -44,10 +42,10 @@ class workorderTest {
 		
 		wo = wos.add(wo);
 		
-		Optional<Workorder> workorder = wos.findById(wo.getWorkorderid());
+		Workorder workorder = wos.findById(wo.getWorkorderid());
 		
-		assertEquals(wo.getOrderqty(), workorder.get().getOrderqty());
-		assertEquals(wo.getScrappedqty(), workorder.get().getScrappedqty());
+		assertEquals(wo.getOrderqty(), workorder.getOrderqty());
+		assertEquals(wo.getScrappedqty(), workorder.getScrappedqty());
 
 	}
 	
@@ -68,13 +66,13 @@ class workorderTest {
 	
 		wo = wos.edit(wo);
 		
-		Optional<Workorder> editedwo = wos.findById(wo.getWorkorderid());
+		Workorder editedwo = wos.findById(wo.getWorkorderid());
 		
-		assertEquals(editedwo.get().getOrderqty(), oq);
-		assertEquals(editedwo.get().getScrappedqty(), sq);
-		assertEquals(editedwo.get().getStartdate(), sd);
-		assertEquals(editedwo.get().getEnddate(), ed);
-		assertEquals(editedwo.get().getDuedate(), dd);
+		assertEquals(editedwo.getOrderqty(), oq);
+		assertEquals(editedwo.getScrappedqty(), sq);
+		assertEquals(editedwo.getStartdate(), sd);
+		assertEquals(editedwo.getEnddate(), ed);
+		assertEquals(editedwo.getDuedate(), dd);
 
 	}
 	

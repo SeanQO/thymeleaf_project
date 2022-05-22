@@ -111,7 +111,6 @@ public class WorkorderServiceImp implements WorkorderService{
 
 	@Override
 	public void delete(Integer id) {
-		Workorder woD = woDao.findById(id);
-		woDao.delete(woD);
+		woDao.delete(id);
 	}
 }

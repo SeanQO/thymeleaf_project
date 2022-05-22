@@ -6,7 +6,7 @@ import com.sean.taller.model.prod.Productcategory;
 public interface ProductCategoryDao {
 	public Productcategory save(Productcategory pc);
 	public Productcategory update(Productcategory pc);
-	public void delete (Productcategory pc);
+	public void delete (Integer pcId);
 	public Productcategory findById(Integer pcId);
 	public List<Productcategory> findAll();
 }

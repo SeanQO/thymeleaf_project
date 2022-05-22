@@ -3,7 +3,7 @@ package com.sean.taller.dao.imp;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -16,17 +16,18 @@ import com.sean.taller.model.prod.Product;
 @Scope("singleton")
 public class ProductDaoImp implements ProductDao{
 	
-	@PersistenceUnit
+	@PersistenceContext
 	private EntityManager em;
 
 	@Override
+	@Transactional
 	public Product update(Product p) {
 		em.merge(p);
 		return p;
 	}
 	
-	@Transactional
 	@Override
+	@Transactional
 	public void delete(Product p) {
 		em.remove(p);
 	}
@@ -43,7 +44,7 @@ public class ProductDaoImp implements ProductDao{
 			p = (Product) query.getSingleResult();
 			
 		} catch (NoResultException e) {
-			throw new NoResultException();
+			return null;
 			
 		}
 		
@@ -62,7 +63,7 @@ public class ProductDaoImp implements ProductDao{
 	
 	@Override
 	public List<Product> findBySubCategory(Integer productsubcategoryid) {
-		String jpql = "Select p from Product p where p.productsubcategoryid=:id";
+		String jpql = "Select p from Product p where p.productsubcategory.productsubcategoryid=:id";
 		Query query = em.createQuery(jpql);
 		query.setParameter("id", productsubcategoryid);
 		
@@ -74,22 +75,13 @@ public class ProductDaoImp implements ProductDao{
 	
 	@Override
 	public List<Product> findByUnitMeasure(Long unitmeasurecode) {
-		return null;
-	}
-/*
-	@Override
-	public List<Product> findByUnitMeasure(Long unitmeasurecode) {
-		String jpql = "Select p from Product p where p.productsubcategoryid=:id";
+		String jpql = "SELECT p FROM Product p WHERE p.unitmeasure1.unitmeasurecode = :unitmeasurecode";
 		Query query = em.createQuery(jpql);
-		query.setParameter("id", productsubcategoryid);
-		
-		List<Product> psc = null;
-		psc = query.getResultList();
-
-		return psc;
+		query.setParameter("unitmeasurecode", unitmeasurecode);
+		return query.getResultList();
 	}
-*/
 	@Override
+	@Transactional
 	public Product save(Product p) {
 		em.persist(p);
 		return p;
