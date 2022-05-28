@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="../css/shards.min.css">
 </head>
 <body>
-	<div th:switch="${workorders}" class="container my-5">
+	<div th:switch="${products}" class="container my-5">
 		<div class="row">
 			<div class="col-md-10">
 				<h2 th:case="null">No Products yet!</h2>
@@ -29,8 +29,12 @@
 								<th>ID</th>
 								<th>name</th>
 								<th>productnumber</th>
+								<th>Sellstartdate</th>
+								<th>Sellenddate</th>
 								<th>productsubcategory</th>
 								<th>productcategory</th>
+								<th>unitmeasure1</th>
+								<th>unitmeasure2</th>
 								<th>size</th>
 								<th>weight</th>
 								<th>Search</th>
@@ -43,22 +47,25 @@
 								<td th:text="${product.productid}"></td>
 								<td th:text="${product.name}"></td>
 								<td th:text="${product.productnumber}"></td>
+								<td th:text="${product.sellstartdate}"></td>
+								<td th:text="${product.sellenddate}"></td>
 								<td th:text="${product.productsubcategory.name}"></td>
 								<td th:text="${product.productsubcategory.productcategory.name}"></td>
 								<td th:text="${product.unitmeasure1.name}"></td>
 								<td th:text="${product.unitmeasure2.name}"></td>
-									
+								<td th:text="${product.size}"></td>
+								<td th:text="${product.weight}"></td>	
 								<td><a
-									th:href="@{/work-ord/{id}(id=${w.workorderid})}"
+									th:href="@{/prod/{id}(id=${product.productid})}"
 									class="btn btn-primary"><i
 										class="fas fa-search ml-2"></i></a></td>
 								<td><a
-									th:href="@{work-ord/edit/{id}(id=${w.workorderid})}"
+									th:href="@{/prod/edit/{id}(id=${product.productid})}"
 									class="btn btn-primary"><i
 										class="fas fa-user-edit ml-2"></i></a></td>
 								<td><a
 								
-									th:href="@{/work-ord/delete/{id}(id=${w.workorderid})}"
+									th:href="@{/prod/delete/{id}(id=${product.productid})}"
 									class="btn btn-primary"><i
 										class="fas fa-user-times ml-2"></i>
 										</a></td>

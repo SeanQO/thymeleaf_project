@@ -50,20 +50,20 @@ public class ProductServiceImp implements ProductService{
 			throw new IllegalArgumentException("product category does not exist");
 		
 		
-//		if( p.getWeight() == null)
-//			throw new NullPointerException();
-//	
-//		if (p.getSize() == null) 
-//			throw new NullPointerException();
-//		
-//		if(p.getProductnumber() == null)
-//			throw new IllegalArgumentException("Product number does not exist");
-//		
-//		if(p.getSellstartdate().compareTo(p.getSellenddate()) >= 0)
-//			throw new IllegalArgumentException("Product sell end date is equal or lesser than the sell start date	");
-//		
-//		if(p.getWeight().compareTo(BigDecimal.ZERO) <= 0)
-//			throw new IllegalArgumentException("Invalid product weigth");
+		if( p.getWeight() == null)
+			throw new NullPointerException();
+	
+		if (p.getSize() == null) 
+			throw new NullPointerException();
+		
+		if(p.getProductnumber() == null)
+			throw new IllegalArgumentException("Product number does not exist");
+		
+		if(p.getSellstartdate().compareTo(p.getSellenddate()) >= 0)
+			throw new IllegalArgumentException("Product sell end date is equal or lesser than the sell start date	");
+		
+		if(p.getWeight().compareTo(BigDecimal.ZERO) <= 0)
+			throw new IllegalArgumentException("Invalid product weigth");
 		
 		p.setUnitmeasure1(um1.get());
 		p.setUnitmeasure2(um2.get());

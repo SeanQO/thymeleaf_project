@@ -36,16 +36,16 @@ public class ProductController {
 			model.addAttribute("products", ip);
 		}
 		
-		return "/prod/index";
+		return "prod/index";
 	}
 	
 	
 	@GetMapping("/edit/{id}")
-	public String editProductvendor(Model model, @PathVariable("id") Integer id) {
+	public String editProduct(Model model, @PathVariable("id") Integer id) {
 		Product p = ps.findById(id);
 		model.addAttribute("product",p);
-		model.addAttribute("Productsubcategory",pscs.findAll());
-		model.addAttribute("unitmeasure1",pscs.findAll());
+		model.addAttribute("productsubcategories",pscs.findAll());
+		model.addAttribute("unitmeasures",ums.findAll());
 		return "prod/edit";
 	}
 
@@ -55,7 +55,7 @@ public class ProductController {
 		return "redirect:/prod";
 	}
 	@GetMapping("/add")
-	public String addProductvendor(Model model) {
+	public String addProduct(Model model) {
 		model.addAttribute("product", new Product());
 		model.addAttribute("productsubcategories", pscs.findAll());
 		model.addAttribute("unitmeasures", ums.findAll());
@@ -63,18 +63,18 @@ public class ProductController {
 	}
 
 	@PostMapping("/add")
-	public String addProductvendorPost(Model model, @ModelAttribute Product p) {
+	public String addProductPost(Model model, @ModelAttribute Product p) {
 		ps.save(p);
 		return "redirect:/prod";
 	}
 	
 	@GetMapping("/delete/{id}")
-	public String deleteProductvendor(Model model, @PathVariable Integer id) {
+	public String deleteProduct(Model model, @PathVariable Integer id) {
 		ps.delete(id);
 		return "redirect:/prod";
 	}
 	@GetMapping("/{id}")
-	public String getProductvendor(Model model, @PathVariable("id") Integer id) {
+	public String getProduct(Model model, @PathVariable("id") Integer id) {
 		Product p = ps.findById(id);
 		model.addAttribute("product",p);
 		return "prod/information";

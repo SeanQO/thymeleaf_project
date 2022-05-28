@@ -80,6 +80,7 @@ public class ProductDaoImp implements ProductDao{
 		query.setParameter("unitmeasurecode", unitmeasurecode);
 		return query.getResultList();
 	}
+	
 	@Override
 	@Transactional
 	public Product save(Product p) {

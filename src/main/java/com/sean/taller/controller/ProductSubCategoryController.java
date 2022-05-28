@@ -6,12 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sean.taller.model.prod.Product;
+import com.sean.taller.model.prod.Productcategory;
 import com.sean.taller.model.prod.Productsubcategory;
 import com.sean.taller.repository.ProductcategoryRepository;
+import com.sean.taller.services.intfcs.ProductService;
 import com.sean.taller.services.intfcs.ProductcategoryService;
 import com.sean.taller.services.intfcs.ProductsubcategoryService;
 
@@ -24,7 +28,7 @@ public class ProductSubCategoryController {
 	private ProductcategoryService pcs;
 	
 	@Autowired
-	public ProductSubCategoryController(ProductsubcategoryService pscs, ProductcategoryService pcs) {
+	public ProductSubCategoryController(ProductsubcategoryService pscs, ProductcategoryService pcs,ProductService ps) {
 		this.pscs = pscs;
 		this.pcs = pcs;
 	}
@@ -42,32 +46,42 @@ public class ProductSubCategoryController {
 	
 	@GetMapping("/edit/{id}")
 	public String editProductvendor(Model model, @PathVariable("id") Integer id) {
-
+		Productsubcategory psc = pscs.findById(id);
+		if (psc == null)
+			throw new IllegalArgumentException("Invalid Prosuct categ Id:" + id);
+		
+		model.addAttribute("productsubcateg", psc);
+		model.addAttribute("productcategs", pcs.findAll());
 		return "prod-sub-categ/edit";
 	}
 
 	@PostMapping("/edit/{id}")
-	public String postEditProduct(Model model) {
-
-		return "prod-sub-categ/edit";
+	public String postEditProduct(Model model, @ModelAttribute Productsubcategory psc) {
+		pscs.edit(psc);
+		return "redirect:/prod-sub-categ";
 	}
 	@GetMapping("/add")
 	public String addProductvendor(Model model) {
+		model.addAttribute("productsubcateg", new Productsubcategory());
+		model.addAttribute("productcategs", pcs.findAll());
 		return "prod-sub-categ/add";
 	}
 
 	@PostMapping("/add")
-	public String addProductvendorPost(Model model) {
-		return "prod-sub-categ/add";
+	public String addProductvendorPost(Model model, @ModelAttribute Productsubcategory ps) {
+		pscs.save(ps);
+		return "redirect:/prod-sub-categ";
 	}
 	
 	@GetMapping("/delete/{id}")
-	public String deleteProductvendor(Model model) {
-		return "prod-sub-categ/index";
+	public String deleteProductvendor(Model model, @PathVariable Integer id) {
+		pscs.delete(id);
+		return "redirect:/prod-sub-categ";
 	}
 	@GetMapping("/{id}")
-	public String getProductvendor(Model model) {
-
+	public String getProductvendor(Model model,@PathVariable("id") Integer id) {
+		Productsubcategory psc = pscs.findById(id);
+		model.addAttribute("productsubcateg", psc);
 		return "prod-sub-categ/information";
 	}
 }

@@ -17,9 +17,48 @@
 <link rel="stylesheet" href="../css/shards.min.css">
 </head>
 <body>
-	<div class="container my-5">
-		<h2>Add Product Categ</h2>
-		
-	</div>
+	<div class="container my-1">
+	<h2 class="mb-5">Add Product SubCategory</h2>
+		<div class="row">
+			<div class="col-md-5">
+				<form action="#" th:object="${productsubcateg}" th:action="@{/prod-sub-categ/add}" method="post">
+					<div class="form-group col-md-6">
+							<label>Category</label> 
+							<select class="form-control"
+									th:field="*{productcategory}">
+									<option th:each="p : ${productcategs}" th:value="${p.productcategoryid}"
+										th:text="${#strings.capitalize(p.name)}"></option>
+								</select> <span th:if="${#fields.hasErrors('productcategory')}"
+									th:errors="*{productcategory}" class="text-danger"></span>
+					</div>
+					<div class="form-group col-md-6">
+        				<label for="visible" class="col-form-label">Modified Date</label>
+                		<input type="date" class="form-control" id="modifieddate" th:field="*{modifieddate}"/>
+               			<span th:if="${#fields.hasErrors('modifieddate')}" th:errors="*{modifieddate}" class="text-danger"></span>
+					</div>
+					<div class="form-group col-md-6">
+        				<label for="visible" class="col-form-label">Name</label>
+                		<input type="text" class="form-control" id="name" placeholder="Name" th:field="*{name}"/>
+               			<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+					</div>
+					<div class="form-group col-md-6">
+        				<label for="visible" class="col-form-label">Rowgu Id</label>
+                		<input type="number" min="0" class="form-control" id="rowguid" value="0" th:field="*{rowguid}"/>
+               			<span th:if="${#fields.hasErrors('rowguid')}" th:errors="*{rowguid}" class="text-danger"></span>
+					</div>
+					
+					<div class="col-md-6 mt-3">
+                		<input type="submit" name="action" class="btn btn-primary" value="Add"/>
+              		</div>
+
+              		<div class="col-md-6 mt-3">
+                		<input type="reset" class="btn btn-secondary" value="Clear" />
+					</div>
+				</form>
+				
+			</div>
+      	</div>
+      	<a href="/prod-categ/"><i class="fas fa-home ml-2"></i> Go to product category index</a>
+    </div>
 </body>
 </html>

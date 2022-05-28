@@ -1,5 +1,6 @@
 package com.sean.taller;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import org.springframework.boot.SpringApplication;
@@ -54,8 +55,6 @@ public class Application {
 		pc1.setRowguid(1);
 		pcs.save(pc1);
 		
-		System.out.println("INCONTEXT" + pcs.findAll());
-		
 		ProductsubcategoryService pscs = c.getBean(ProductsubcategoryService.class);
 		Productsubcategory psc1 = new Productsubcategory();
 		psc1.setName("Android");
@@ -77,11 +76,14 @@ public class Application {
 		ProductService ps =  c.getBean(ProductService.class);
 		Product p1 = new Product();
 		p1.setName("samsung");
-		p1.setDaystomanufacture(4500);
 		p1.setProductnumber("1");
+		p1.setSellstartdate(LocalDate.of(2022, 05, 8));
+		p1.setSellenddate(LocalDate.of(2023, 01, 8));
 		p1.setProductsubcategory(psc1);
 		p1.setUnitmeasure1(um1);
 		p1.setUnitmeasure2(um2);
+		p1.setSize("S");
+		p1.setWeight(BigDecimal.valueOf(80));
 		ps.save(p1);
 	}
 	

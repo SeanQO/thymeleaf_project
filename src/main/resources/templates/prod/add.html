@@ -17,78 +17,83 @@
 <link rel="stylesheet" href="../css/shards.min.css">
 </head>
 <body>
-<div class="container my-1">
-<h2 class="mb-5">Add Product</h2>
-	<div class="row">
-		<div class="col-md-5">
-			<form action="#" th:object="${product}" th:action="@{/prod/add}" method="post">
-			
-				<div class="form-group col-md-6">
-							<label for="name" class="col-form-label">name</label> <input
-								type="text" th:field="*{name}" class="form-control" id="name"
-								placeholder="Name"> 
-								<span
-								th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
-								class="text-danger"></span>
-						</div>
-						
-						<div class="form-group col-md-6">
-							<label for="daystomanufacture" class="col-form-label">daystomanufacture</label> <input
-								type="text" th:field="*{daystomanufacture}" class="form-control" id="daystomanufacture"
-								placeholder="daystomanufacture"> <span
-								th:if="${#fields.hasErrors('daystomanufacture')}" th:errors="*{daystomanufacture}"
-								class="text-danger"></span>
-						</div>
-						
-						<div class="form-group col-md-6">
-							<label for="productnumber" class="col-form-label">productnumber</label> <input
-								type="text" th:field="*{productnumber}" class="form-control" id="productnumber"
-								placeholder="productnumber"> <span
-								th:if="${#fields.hasErrors('productnumber')}" th:errors="*{productnumber}"
-								class="text-danger"></span>
-						</div>
-						
-						<div class="form-group col-md-6">
-							<label for="productsubcategory" class="col-form-label">productsubcategory</label> <select
-								th:field="*{productsubcategory}">
-								<option th:each="psc : ${productsubcategories}" th:value="${psc.productsubcategoryid}"
-									class="form-control" th:text="${psc.name}"
-									th:selected="${product.productsubcategory=psc}"></option>
-							</select> <span th:if="${#fields.hasErrors('productsubcategory')}"
-								th:errors="*{productsubcategory}" class="text-danger"></span>
-						</div>
-						
-						<div class="form-group col-md-6">
-							<label for="unitmeasure1" class="col-form-label">unitmeasure1</label> <select
-								th:field="*{unitmeasure1}">
-								<option th:each="um : ${unitmeasures}" th:value="${um.unitmeasurecode}"
-									class="form-control" th:text="${um.name}"
-									th:selected="${product.unitmeasure1=um}"></option>
-							</select> <span th:if="${#fields.hasErrors('unitmeasure1')}"
-								th:errors="*{unitmeasure1}" class="text-danger"></span>
-						</div>
-						
-						<div class="form-group col-md-6">
-							<label for="unitmeasure2" class="col-form-label">unitmeasure2</label> <select
-								th:field="*{unitmeasure2}">
-								<option th:each="um2 : ${unitmeasures}" th:value="${um2.unitmeasurecode}"
-									class="form-control" th:text="${um2.name}"
-									th:selected="${product.unitmeasure2=um2}"></option>
-							</select> <span th:if="${#fields.hasErrors('unitmeasure2')}"
-								th:errors="*{unitmeasure2}" class="text-danger"></span>
-						</div>
-          	 	<div class="col-md-6 mt-3">
-                	<input type="submit" name="action" class="btn btn-primary" value="Add"/>
-              	</div>
-              	
-              	
-              	<div class="col-md-6 mt-3">
-                	<input type="reset" class="btn btn-secondary" value="Clear" />
-				</div>
-          </form>
-        </div>
-      </div>
-      	<a href="/prod/"><i class="fas fa-home ml-2"></i> Go back to work order</a>
-    </div>
+	<div class="container my-1">
+		<h2 class="mb-5">Add Product</h2>
+		<div class="row">
+			<div class="col-md-5">
+				<form action="#" th:object="${product}" th:action="@{/prod/add}"
+					method="post">
+
+					<div class="form-group col-md-6">
+						<label for="name" class="col-form-label">name</label> <input
+							type="text" th:field="*{name}" class="form-control" id="name"
+							placeholder="Name"> <span
+							th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+							class="text-danger"></span>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="daystomanufacture" class="col-form-label">daystomanufacture</label>
+						<input type="text" th:field="*{daystomanufacture}"
+							class="form-control" id="daystomanufacture"
+							placeholder="daystomanufacture"> <span
+							th:if="${#fields.hasErrors('daystomanufacture')}"
+							th:errors="*{daystomanufacture}" class="text-danger"></span>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="productnumber" class="col-form-label">productnumber</label>
+						<input type="text" th:field="*{productnumber}"
+							class="form-control" id="productnumber"
+							placeholder="productnumber"> <span
+							th:if="${#fields.hasErrors('productnumber')}"
+							th:errors="*{productnumber}" class="text-danger"></span>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="productsubcategory" class="col-form-label">productsubcategory</label>
+						<select th:field="*{productsubcategory}">
+							<option th:each="psc : ${productsubcategories}"
+								th:value="${psc.productsubcategoryid}" class="form-control"
+								th:text="${psc.name}"
+								th:selected="${product.productsubcategory=psc}"></option>
+						</select> <span th:if="${#fields.hasErrors('productsubcategory')}"
+							th:errors="*{productsubcategory}" class="text-danger"></span>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="unitmeasure1" class="col-form-label">unitmeasure1</label>
+						<select th:field="*{unitmeasure1}">
+							<option th:each="um : ${unitmeasures}"
+								th:value="${um.unitmeasurecode}" class="form-control"
+								th:text="${um.name}" th:selected="${product.unitmeasure1=um}"></option>
+						</select> <span th:if="${#fields.hasErrors('unitmeasure1')}"
+							th:errors="*{unitmeasure1}" class="text-danger"></span>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="unitmeasure2" class="col-form-label">unitmeasure2</label>
+						<select th:field="*{unitmeasure2}">
+							<option th:each="um2 : ${unitmeasures}"
+								th:value="${um2.unitmeasurecode}" class="form-control"
+								th:text="${um2.name}" th:selected="${product.unitmeasure2=um2}"></option>
+						</select> <span th:if="${#fields.hasErrors('unitmeasure2')}"
+							th:errors="*{unitmeasure2}" class="text-danger"></span>
+					</div>
+					<div class="col-md-6 mt-3">
+						<input type="submit" name="action" class="btn btn-primary"
+							value="Add" />
+					</div>
+
+
+					<div class="col-md-6 mt-3">
+						<input type="reset" class="btn btn-secondary" value="Clear" />
+					</div>
+				</form>
+			</div>
+		</div>
+		<a href="/prod/"><i class="fas fa-home ml-2"></i> Go back to work
+			order</a>
+	</div>
 </body>
 </html>

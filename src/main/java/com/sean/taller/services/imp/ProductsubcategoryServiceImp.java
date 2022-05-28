@@ -33,7 +33,7 @@ public class ProductsubcategoryServiceImp implements ProductsubcategoryService{
 			throw new IllegalArgumentException("Product sub-category is not instantiated");
 		
 		if((psc.getName().replaceAll(" ", "").length() < 5))
-			throw new IllegalArgumentException("Not enough characters for product category");
+			throw new IllegalArgumentException("Not enough characters for product sub category");
 		
 		Optional<Productcategory> pc = pcr.findById(psc.getProductcategory().getProductcategoryid());
 		

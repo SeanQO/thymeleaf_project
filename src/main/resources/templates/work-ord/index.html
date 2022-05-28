@@ -40,13 +40,13 @@
 						</thead>
 						<tbody>
 							<tr th:each="w : ${workorders}">
-								<td class="text-info" th:text="${w.workorderid}"></td>
-								<td class="text-info" th:text="${w.duedate}"></td>
-								<td class="text-info" th:text="${w.enddate}"></td>
-								<td class="text-info" th:text="${w.modifieddate}"></td>
-								<td class="text-info" th:text="${w.orderqty}"></td>
-								<td class="text-info" th:text="${w.scrappedqty}"></td>
-								<td class="text-info" th:text="${w.startdate}"></td>
+								<td th:text="${w.workorderid}"></td>
+								<td th:text="${w.duedate}"></td>
+								<td th:text="${w.enddate}"></td>
+								<td th:text="${w.modifieddate}"></td>
+								<td th:text="${w.orderqty}"></td>
+								<td th:text="${w.scrappedqty}"></td>
+								<td th:text="${w.startdate}"></td>
 									
 								<td><a
 									th:href="@{/work-ord/{id}(id=${w.workorderid})}"
