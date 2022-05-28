@@ -5,12 +5,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sean.taller.user.UserEntity;
+
 @Controller
 @RequestMapping("")
 public class LoginController {
 
 	    @GetMapping("/login")
-	    public String login(){
+	    public String login(UserEntity userEntity){
 	        return "login";
 	        
 	    }
