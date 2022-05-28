@@ -3,7 +3,7 @@ package com.sean.taller.model.prod;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-
+import javax.validation.constraints.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -27,12 +28,13 @@ public class Productcategory implements Serializable {
 	@SequenceGenerator(name = "PRODUCTCATEGORY_PRODUCTCATEGORYID_GENERATOR", allocationSize = 1, sequenceName = "PRODUCTCATEGORY_SEQ")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRODUCTCATEGORY_PRODUCTCATEGORYID_GENERATOR")
 	private Integer productcategoryid;
-
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate modifieddate;
-
+	
+	@Size(min = 3)
 	private String name;
-
+	
 	private Integer rowguid;
 
 	// bi-directional many-to-one association to Productsubcategory

@@ -30,7 +30,7 @@
 					<div class="form-group col-md-6">
         				<label for="visible" class="col-form-label">Name</label>
                 		<input type="text" class="form-control" id="name" placeholder="Name" th:field="*{name}"/>
-               			<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+               			<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger">Not enough characters for product category name</span>
 					</div>
 					<div class="form-group col-md-6">
         				<label for="visible" class="col-form-label">Rowgu Id</label>
