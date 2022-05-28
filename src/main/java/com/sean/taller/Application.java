@@ -70,7 +70,7 @@ public class Application {
 		um1.setName("kg");
 		ums.save(um1);
 		Unitmeasure um2 = new Unitmeasure();
-		um2.setName("ml");
+		um2.setName("cm");
 		ums.save(um2);
 
 		ProductService ps =  c.getBean(ProductService.class);

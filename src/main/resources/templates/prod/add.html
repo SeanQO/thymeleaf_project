@@ -31,31 +31,35 @@
 							th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
 							class="text-danger"></span>
 					</div>
-					
+
 					<div class="form-group col-md-6">
-						<label for="productnumber" class="col-form-label">Product Number</label>
-						<input type="text" th:field="*{productnumber}"
+						<label for="productnumber" class="col-form-label">Product
+							Number</label> <input type="text" th:field="*{productnumber}"
 							class="form-control" id="productnumber"
 							placeholder="productnumber"> <span
 							th:if="${#fields.hasErrors('productnumber')}"
 							th:errors="*{productnumber}" class="text-danger"></span>
 					</div>
-					
+
 					<div class="form-group col-md-6">
-        				<label for="visible" class="col-form-label">Sell start date</label>
-                		<input type="date" class="form-control" id="sellstartdate" placeholder="sellstartdate" th:field="*{sellstartdate}"/>
-               			<span th:if="${#fields.hasErrors('sellstartdate')}" th:errors="*{sellstartdate}" class="text-danger"></span>
+						<label for="visible" class="col-form-label">Sell start
+							date</label> <input type="date" class="form-control" id="sellstartdate"
+							placeholder="sellstartdate" th:field="*{sellstartdate}" /> <span
+							th:if="${#fields.hasErrors('sellstartdate')}"
+							th:errors="*{sellstartdate}" class="text-danger"></span>
 					</div>
-					
+
 					<div class="form-group col-md-6">
-        				<label for="visible" class="col-form-label">Sell end date</label>
-                		<input type="date" class="form-control" id="sellenddate" placeholder="sellenddate" th:field="*{sellenddate}"/>
-               			<span th:if="${#fields.hasErrors('sellenddate')}" th:errors="*{sellenddate}" class="text-danger"></span>
+						<label for="visible" class="col-form-label">Sell end date</label>
+						<input type="date" class="form-control" id="sellenddate"
+							placeholder="sellenddate" th:field="*{sellenddate}" /> <span
+							th:if="${#fields.hasErrors('sellenddate')}"
+							th:errors="*{sellenddate}" class="text-danger"></span>
 					</div>
-					
+
 					<div class="form-group col-md-6">
-						<label for="productsubcategory" class="col-form-label">Product Sub Category</label>
-						<select th:field="*{productsubcategory}">
+						<label for="productsubcategory" class="col-form-label">Product
+							Sub Category</label> <select th:field="*{productsubcategory}">
 							<option th:each="psc : ${productsubcategories}"
 								th:value="${psc.productsubcategoryid}" class="form-control"
 								th:text="${psc.name}"
@@ -63,10 +67,10 @@
 						</select> <span th:if="${#fields.hasErrors('productsubcategory')}"
 							th:errors="*{productsubcategory}" class="text-danger"></span>
 					</div>
-					
+
 					<div class="form-group col-md-6">
-						<label for="unitmeasure1" class="col-form-label">Unit Measure 1</label>
-						<select th:field="*{unitmeasure1}">
+						<label for="unitmeasure1" class="col-form-label">Unit
+							Measure 1</label> <select th:field="*{unitmeasure1}">
 							<option th:each="um : ${unitmeasures}"
 								th:value="${um.unitmeasurecode}" class="form-control"
 								th:text="${um.name}" th:selected="${product.unitmeasure1=um}"></option>
@@ -75,27 +79,30 @@
 					</div>
 
 					<div class="form-group col-md-6">
-						<label for="unitmeasure2" class="col-form-label">Unit Measure 2</label>
-						<select th:field="*{unitmeasure2}">
+						<label for="unitmeasure2" class="col-form-label">Unit
+							Measure 2</label> <select th:field="*{unitmeasure2}">
 							<option th:each="um2 : ${unitmeasures}"
 								th:value="${um2.unitmeasurecode}" class="form-control"
 								th:text="${um2.name}" th:selected="${product.unitmeasure2=um2}"></option>
 						</select> <span th:if="${#fields.hasErrors('unitmeasure2')}"
 							th:errors="*{unitmeasure2}" class="text-danger"></span>
 					</div>
-					
+
 					<div class="form-group col-md-6">
-        				<label for="visible" class="col-form-label">Size</label>
-                		<input type="text" class="form-control" id="size" placeholder="size" th:field="*{size}"/>
-               			<span th:if="${#fields.hasErrors('size')}" th:errors="*{size}" class="text-danger"></span>
+						<label for="visible" class="col-form-label">Size</label> <input
+							type="text" class="form-control" id="size" placeholder="size"
+							th:field="*{size}" /> <span th:if="${#fields.hasErrors('size')}"
+							th:errors="*{size}" class="text-danger"></span>
 					</div>
-					
+
 					<div class="form-group col-md-6">
-        				<label for="visible" class="col-form-label">Weight</label>
-                		<input type="number" min="0" class="form-control" id="weight" th:field="*{weight}"/>
-               			<span th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}" class="text-danger"></span>
+						<label for="visible" class="col-form-label">Weight</label> <input
+							type="number" min="0" class="form-control" id="weight"
+							th:field="*{weight}" /> <span
+							th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"
+							class="text-danger"></span>
 					</div>
-					
+
 					<div class="col-md-6 mt-3">
 						<input type="submit" name="action" class="btn btn-primary"
 							value="Add" />
@@ -107,9 +114,11 @@
 					</div>
 				</form>
 			</div>
-		</div>
-		<a href="/prod/"><i class="fas fa-home ml-2"></i> Go back to work
-			order</a>
-	</div>
+			<div class="container my-5">
+				<form>
+					<input type="button" value="Go back" onclick="history.back()"
+						class="btn btn-primary">
+				</form>
+			</div>
 </body>
 </html>
