@@ -40,6 +40,12 @@ public class ProductsubcategoryServiceImp implements ProductsubcategoryService{
 		if(pc.isEmpty())
 			throw new IllegalArgumentException("Product category does not exist");
 		
+		if(psc.getModifieddate() == null)
+			throw new IllegalArgumentException("Date cannot be null");
+		
+		if(psc.getRowguid() == null)
+			throw new IllegalArgumentException("Rowguid cannot be null");
+		
 		psc.setProductcategory(pc.get());
 		
 		pscDao.save(psc);
@@ -56,6 +62,12 @@ public class ProductsubcategoryServiceImp implements ProductsubcategoryService{
 		
 		if(pc == null)
 			throw new IllegalArgumentException("Product category does not exist");
+		
+		if(psc.getModifieddate() == null)
+			throw new IllegalArgumentException("Date cannot be null");
+		
+		if(psc.getRowguid() == null)
+			throw new IllegalArgumentException("Rowguid cannot be null");
 		
 		if((psc.getName().replaceAll(" ", "").length() < 5))
 			throw new IllegalArgumentException("Not enough characters for product category");

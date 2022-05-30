@@ -52,9 +52,29 @@
                 	<span th:if="${#fields.hasErrors('scrappedqty')}" th:errors="*{scrappedqty}" class="text-danger"></span>
               	</div>
               	<div class="form-group col-md-6">
+						<label for="scrapreason" class="col-form-label">Scrap Reason
+							</label> <select th:field="*{scrapreason}">
+							<option th:each="sr : ${scrapreason}"
+								th:value="${sr.scrapreasonid}" class="form-control"
+								th:text="${sr.name}"
+								th:selected="${workorder.scrapreason=sr}"></option>
+						</select> <span th:if="${#fields.hasErrors('scrapreason')}"
+							th:errors="*{scrapreason}" class="text-danger"></span>
+              	</div>
+              	<div class="form-group col-md-6">
                 	<label for="visible" class="col-form-label">Start date</label>
                 	<input type="date" class="form-control" id="startdate" placeholder="Start date" th:field="*{startdate}"/>
                 	<span th:if="${#fields.hasErrors('startdate')}" th:errors="*{startdate}" class="text-danger"></span>
+              	</div>
+              	<div class="form-group col-md-6">
+						<label for="product" class="col-form-label">Product
+							</label> <select th:field="*{product}">
+							<option th:each="p : ${product}"
+								th:value="${p.productid}" class="form-control"
+								th:text="${p.name}"
+								th:selected="${workorder.product=p}"></option>
+						</select> <span th:if="${#fields.hasErrors('product')}"
+							th:errors="*{product}" class="text-danger"></span>
               	</div>
           	 	<div class="col-md-6 mt-3">
                 	<input type="submit" name="action" class="btn btn-primary" value="Edit"/>
@@ -67,7 +87,12 @@
           </form>
         </div>
       </div>
-      	<a href="/work-ord/"><i class="fas fa-home ml-2"></i> Go back to work order</a>
+      	<div class="container my-5">
+			<form>
+				<input type="button" value="Go back" onclick="history.back()"
+					class="btn btn-primary">
+			</form>
+		</div>
     </div>
 </body>
 </html>

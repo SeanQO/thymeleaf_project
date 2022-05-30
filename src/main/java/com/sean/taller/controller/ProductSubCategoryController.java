@@ -1,10 +1,13 @@
 package com.sean.taller.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,7 +51,7 @@ public class ProductSubCategoryController {
 	public String editProductvendor(Model model, @PathVariable("id") Integer id) {
 		Productsubcategory psc = pscs.findById(id);
 		if (psc == null)
-			throw new IllegalArgumentException("Invalid Prosuct categ Id:" + id);
+			throw new IllegalArgumentException("Invalid Product categ Id:" + id);
 		
 		model.addAttribute("productsubcateg", psc);
 		model.addAttribute("productcategs", pcs.findAll());
@@ -68,10 +71,17 @@ public class ProductSubCategoryController {
 	}
 
 	@PostMapping("/add")
-	public String addProductvendorPost(Model model, @ModelAttribute Productsubcategory ps) {
-		pscs.save(ps);
-		return "redirect:/prod-sub-categ";
+	public String addProductSubCategoryPost(Model model, @Valid @ModelAttribute Productsubcategory psc, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {       
+			model.addAttribute("productsubcateg", new Productcategory());
+	        return "prod-sub-categ/add";
+	    } else {
+	    	pscs.save(psc);
+	    	return "redirect:/prod-sub-categ";
+	    }
+		
 	}
+	
 	
 	@GetMapping("/delete/{id}")
 	public String deleteProductvendor(Model model, @PathVariable Integer id) {

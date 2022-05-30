@@ -19,9 +19,6 @@
 <body>
 <div class="container my-5">
     <h2>Work Order Info</h2>
-    <p>
-        <a href="/" class="btn btn-primary">Main Menu</a>
-    </p>
     <div>
         <h5>Id</h5>
         <p th:text="${workorder.workorderid}"></p>
@@ -43,8 +40,16 @@
         <p th:text="${workorder.scrappedqty}"></p>
     </div>
     <div>
+        <h5>Scrap reason</h5>
+        <p th:text="${workorder.scrapreason.name}"></p>
+    </div>
+    <div>
         <h5>Start date</h5>
         <p th:text="${workorder.startdate}"></p>
+    </div>
+    <div>
+        <h5>Product</h5>
+        <p th:text="${workorder.product.name}"></p>
     </div>
     
     <p>

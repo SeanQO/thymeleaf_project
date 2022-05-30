@@ -32,7 +32,9 @@
 								<th>Modified date</th>
 								<th>Order qty</th>
 								<th>Scrapped qty</th>
-								<th>Start dat</th>
+								<th>Scrap reason</th>
+								<th>Start date</th>
+								<th>Pruduct</th>
 								<th>Search</th>
 								<th>Edit</th>
 								<th>Delete</th>
@@ -46,7 +48,9 @@
 								<td th:text="${w.modifieddate}"></td>
 								<td th:text="${w.orderqty}"></td>
 								<td th:text="${w.scrappedqty}"></td>
+								<td th:text="${w.scrapreason.name}"></td>
 								<td th:text="${w.startdate}"></td>
+								<td th:text="${w.product.name}"></td>
 									
 								<td><a
 									th:href="@{/work-ord/{id}(id=${w.workorderid})}"

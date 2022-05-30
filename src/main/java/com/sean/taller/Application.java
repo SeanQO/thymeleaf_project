@@ -13,13 +13,17 @@ import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import com.sean.taller.model.prod.Product;
 import com.sean.taller.model.prod.Productcategory;
 import com.sean.taller.model.prod.Productsubcategory;
+import com.sean.taller.model.prod.Scrapreason;
 import com.sean.taller.model.prod.Unitmeasure;
+import com.sean.taller.model.prod.Workorder;
 import com.sean.taller.services.imp.UserServiceImp;
 import com.sean.taller.services.intfcs.ProductService;
 import com.sean.taller.services.intfcs.ProductcategoryService;
 import com.sean.taller.services.intfcs.ProductsubcategoryService;
+import com.sean.taller.services.intfcs.ScrapreasonService;
 import com.sean.taller.services.intfcs.UnitmeasureService;
 import com.sean.taller.services.intfcs.UserService;
+import com.sean.taller.services.intfcs.WorkorderService;
 import com.sean.taller.user.UserEntity;
 import com.sean.taller.user.UserType;
 
@@ -85,6 +89,23 @@ public class Application {
 		p1.setSize("S");
 		p1.setWeight(BigDecimal.valueOf(80));
 		ps.save(p1);
+		
+		ScrapreasonService s = c.getBean(ScrapreasonService.class);
+		Scrapreason s1 = new Scrapreason();
+		s1.setName("damaged");
+		s.save(s1);
+		
+		WorkorderService wo = c.getBean(WorkorderService.class);
+		Workorder w1 = new Workorder();
+		w1.setDuedate(LocalDate.of(2022, 05, 8));
+		w1.setEnddate(LocalDate.of(2022, 05, 10));
+		w1.setModifieddate(LocalDate.of(2022, 05, 6));
+		w1.setOrderqty(5);
+		w1.setProduct(p1);
+		w1.setScrappedqty(12);
+		w1.setScrapreason(s1);
+		w1.setStartdate(LocalDate.of(2022, 05, 1));
+		wo.add(w1);
 	}
 	
 	@Bean

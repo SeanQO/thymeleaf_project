@@ -30,6 +30,7 @@
 								<th>Modified Date</th>
 								<th>Name</th>
 								<th>Rowgu Id</th>
+								<th>Category
 								<th>Search</th>
 								<th>Edit</th>
 								<th>Delete</th>
@@ -41,12 +42,13 @@
 								<td class="text-info" th:text="${p.modifieddate}"></td>
 								<td class="text-info" th:text="${p.name}"></td>
 								<td class="text-info" th:text="${p.rowguid}"></td>
+								<td class="text-info" th:text="${p.productcategory.name}"></td>
 								<td><a
 									th:href="@{/prod-sub-categ/{id}(id=${p.productsubcategoryid})}"
 									class="btn btn-primary"><i
 										class="fas fa-search ml-2"></i></a></td>
 								<td><a
-									th:href="@{prod-sub-categ/edit/{id}(id=${p.productsubcategoryid})}"
+									th:href="@{/prod-sub-categ/edit/{id}(id=${p.productsubcategoryid})}"
 									class="btn btn-primary"><i
 										class="fas fa-user-edit ml-2"></i></a></td>
 								<td><a

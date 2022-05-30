@@ -35,6 +35,10 @@
         <h5>Rowgu Id</h5>
         <p th:text="${productsubcateg.rowguid}"></p>
     </div>
+    <div>
+        <h5>Product Category</h5>
+        <p th:text="${productsubcateg.productcategory.name}"></p>
+    </div>
 
     <p>
         <a th:href="@{/prod-sub-categ/edit/{id}(id=${productsubcateg.productsubcategoryid})}" class="btn btn-primary">Edit</a>

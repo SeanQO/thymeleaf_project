@@ -26,13 +26,14 @@
                 		<input type="hidden" th:field="*{productsubcategoryid}"/>
             		</div>
 					<div class="form-group col-md-6">
-							<label>Category</label> 
-							<select class="form-control"
-									th:field="*{productcategory}">
-									<option th:each="p : ${productcategs}" th:value="${p.productcategoryid}"
-										th:text="${#strings.capitalize(p.name)}"></option>
-								</select> <span th:if="${#fields.hasErrors('productcategory')}"
-									th:errors="*{productcategory}" class="text-danger"></span>
+						<label for="productcategory" class="col-form-label">Product Category
+							</label> <select th:field="*{productcategory}">
+							<option th:each="pc : ${productcategs}"
+								th:value="${pc.productcategoryid}" class="form-control"
+								th:text="${pc.name}"
+								th:selected="${productsubcateg.productcategory=pc}"></option>
+						</select> <span th:if="${#fields.hasErrors('productcategory')}"
+							th:errors="*{productcategory}" class="text-danger"></span>
 					</div>
 					<div class="form-group col-md-6">
         				<label for="visible" class="col-form-label">Modified Date</label>
@@ -61,7 +62,12 @@
 				
 			</div>
       	</div>
-      	<a href="/prod-sub-categ/"><i class="fas fa-home ml-2"></i> Go to product sub category index</a>
+      	<div class="container my-5">
+			<form>
+				<input type="button" value="Go back" onclick="history.back()"
+					class="btn btn-primary">
+			</form>
+		</div>
     </div>
 </body>
 </html>
